@@ -1,0 +1,6 @@
+<svg width="42" height="35" viewBox="0 0 42 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .fore{fill: #363636;}
+    </style>
+    <path class="fore" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H42V35H0V0ZM13 9L10 13L7 9H13ZM32 8L29 12H35L32 8ZM30 25L34 28L30 31V25ZM8 28L12 31V25L8 28Z"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="ecsSvgTheme" d="M4.75 15C4.75 15.1381 4.86193 15.25 5 15.25H15C15.1381 15.25 15.25 15.1381 15.25 15V3C15.25 2.86193 15.1381 2.75 15 2.75H12V2H15C15.5523 2 16 2.44772 16 3V15C16 15.5523 15.5523 16 15 16H5C4.44772 16 4 15.5523 4 15V14H4.75V15Z"/>
+    <path class="ecsSvgTheme" d="M8 4.5V3L12 5.625V6.375L8 9V7.5L10.5 6L8 4.5Z"/>
+    <path class="ecsSvgTheme" d="M4 4.5V3L0 5.625V6.375L4 9V7.5L1.5 6L4 4.5Z"/>
+    <path class="ecsSvgTheme" d="M7 1H8L5 11H4L7 1Z"/>
+</svg>
