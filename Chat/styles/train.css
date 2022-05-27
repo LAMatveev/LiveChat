@@ -1,0 +1,38 @@
+/* //////////// train -------  Паровозики ------- ///////
+      .0 хаки для IE10
+      .1 общие стили
+      .2 хаки для мест использование паровозиков (ECS)
+
+   train - класс для контрола:
+   - trainWrap - доп.класс вертикальных паровозиков (адресаты ECS)
+   - trainLink - доп.класс подчеркивания при наведении
+   - disabled - доп.класс для недоступного состояния
+
+   trainItem - один паровозик
+   trainItemBox - внутренность паровозика
+   trainName - левый вагон
+   trainTitle - правый вагон
+   trainClose - крестик закрытия
+   //////////////////////////////////////////////////////////// */
+/* ------------ train ------- .1 общие стили */
+.trainClose {fill: var(--INTERFACE_COLOR);}
+.trainClose svg {opacity: 0.6;}
+.trainClose:HOVER svg {opacity: 0.9;}
+.train, .trainItem {box-sizing: border-box;}
+.train {display: flex; height: inherit; margin: 0 -4px; overflow: hidden;}
+.trainWrap {flex-wrap: wrap;}
+.trainItem {display: inherit; align-items: center; background-color: var(--INTERFACE_TEXT_BACKGROUND_COLOR); color: var(--INTERFACE_COLOR); border-radius: 0.3em; position: relative; margin: 0 4px; padding: 0 0.25em; overflow: hidden;}
+.trainItemBox {display: inherit; align-items: baseline; position: relative; line-height: 1.5em; overflow: hidden;}
+.trainLink .trainItemBox:HOVER:before {content: ''; display: block; border-top: 1px solid; position: absolute; top: 1.2em; right: 0; left: 0;}
+.trainName {opacity: 0.7;}
+.trainTitle {margin: 0 0.3em;}
+.disabled.train:after {content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+.disabled.train .trainItem {opacity: 0.5;}
+/* /end ------- train ------- .1 общие стили */
+/* ------------ train ------- .2 хаки для мест использование паровозиков (ECS) */
+.ecsAnswer .train {max-height: 6.3em; padding: 0 0.3em; margin: 0; line-height: normal; overflow-y: auto;}
+.ecsAnswer .trainItem {height: 1.8em; margin: 0.3em 0.15em 0;}
+.ecsMessage .train {height: 1.8em;}
+.ecsMessage .trainItem {margin-top: 0;}
+/* /end ------- train ------- .2 хаки для мест использование паровозиков (ECS) */
+/* /end /////// train ------- //////////////////////// */

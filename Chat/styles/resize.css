@@ -1,0 +1,69 @@
+/* //////////// resize -------  Ресайз ------- ///////
+      .1 общие стили
+
+   resize - общий класс для элемента ресайза:
+   доп.класс положения:
+   - resizeTL - Top Left
+   - resizeTC - Top Center
+   - resizeTR - Top Right
+   - resizeCR - Center Right
+   - resizeBR - Bottom Right
+   - resizeBC - Bottom Center
+   - resizeBL - Bottom Left
+   - resizeCL - Center Left
+   //////////////////////////////////////////////////////////// */
+/* ------------ resize ------- .1 общие стили */
+.resize {
+    display: inline-block;
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+.resizeTL, .resizeTC, .resizeTR {
+    top: -4px;
+}
+.resizeTR, .resizeCR, .resizeBR {
+    right: -4px;
+}
+.resizeBR, .resizeBC, .resizeBL {
+    bottom: -4px;
+}
+.resizeTL, .resizeBL, .resizeCL {
+    left: -4px;
+}
+.resizeTC, .resizeBC {
+    left: 6px;
+    right: 6px;
+}
+.resizeCR, .resizeCL {
+    top: 6px;
+    bottom: 6px;
+}
+
+.resizeTL {
+    cursor: nw-resize;
+}
+.resizeTC {
+    cursor: n-resize;
+}
+.resizeTR {
+    cursor: ne-resize;
+}
+.resizeCR {
+    cursor: e-resize;
+}
+.resizeBR {
+    cursor: se-resize;
+}
+.resizeBC {
+    cursor: s-resize;
+}
+.resizeBL {
+    cursor: sw-resize;
+}
+.resizeCL {
+    cursor: w-resize;
+}
+/* /end ------- resize ------- .1 общие стили */
+/* /end /////// resize ------- //////////////////////// */

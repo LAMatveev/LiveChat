@@ -1,0 +1,314 @@
+/* //////////// command + buttons ------- Коммандная панель + Кнопки
+      .0 хаки IE10 и IE11
+      .1 каркас командной панели
+      .2 общие стили для кнопок, внутренностей, состояний
+      .3 Отличие самостоятельной кнопки
+      .4 компактный режим
+      .5 хак для Safari и iPad
+      .6 стили для масштабирования
+      .7 .lfl - старый лейаутер
+
+   !!!!!!! ВНИМАНИЕ: - commandHeight - проба установки высота, по необходимости
+
+   frameCommand - оболочка командной панели:
+   command - командная панель:
+   - taE, taC - выравнивание кнопок справа / по центру
+   - commandField - наличие в панели поля ввода
+   - commandFieldBox - контейнер поля ввода в панели
+   - commandRight - кнопки правой части
+   - commandSeparator - группа кнопок
+   - commandSeparatorCompact - компактная группа кнопок
+
+   framePress/frameButton - оболочка кнопки
+   framePressSearch - оболочка кнопки расширенного поиска
+   pressMorePadding - отступ между кнопками правой и левой части при наличии кнопки еще
+   pressBefore - отступ между кнопками отдельным контейнером
+   pressBeforeMore - перед кнопкой еще надо отличить отступ
+   pressDisplay - аналог style: display: none; для кнопки
+   press - кнопка:
+   - pressMore - добавочный класс для кнопки еще
+   - pressCommand - добавочный класс для кнопки командной панели
+   - pressButton - добавочный класс для самостоятельной кнопки
+   дополнительное оформление кнопки:
+   - pressActive - кнопка с оформлением при активности
+   - pressNone - кнопка без оформления
+   - pressLink - гиперссылка командной панели
+   состояние кнопки:
+   - pressDefault - дефолтная кнопка
+   - pressChecked - чекнутая кнопка
+   - pressDisabled - недоступная кнопка
+   форма кнопки:
+   - pressOval - овальная кнопка
+   pressImg - картинка
+   pressBox - текст
+   - pressBoxTitle - вложженый контейнер текста для pressButton
+   pressDrop - стрелка подменю
+
+   #ServCntButton .press - показатели производительности
+   //////////////////////////////////////////////////////////// */
+
+:root {
+    --PRESS_BORDER_RADIUS: 2px;
+    --PRESS_OVAL_RADIUS: 250px;
+
+    --PRESS_BORDER_COLOR: var(--INTERFACE_BG_3);
+    --PRESS_BORDER_BOTTOM_COLOR: var(--INTERFACE_BG_4);
+    --PRESS_BACKGROUND_COLOR: var(--INTERFACE_BACKGROUND_COLOR);
+    --PRESS_HOVER_BACKGROUND_COLOR: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] {
+        --PRESS_HOVER_BACKGROUND_COLOR: rgba(0,0,0,0.08);
+}
+/* ------------ CommandBar + Buttons ------- .1 каркас командной панели */
+/* наследование высот */
+/* наследование высот */
+.frameCommand, .command, .commandRight, .commandSeparator, .framePress, .press {height: inherit;}
+.commandHeight {height: var(--INTERFACE_PRESS_HEIGHT);}
+/* сам каркас панели */
+.command {position: relative; width: 100%; z-index: 0; word-spacing: 1.2em; word-break: break-all;}
+/* выравнивание кнопок в панели */
+.taC .command {display: inline-block; vertical-align: top;}
+.commandRight {max-width: 100%; text-align: inherit; word-spacing: 0;}
+/* сепараторы */
+.commandSeparator {vertical-align: top; word-spacing: 0;}
+.commandSeparatorCompact {padding: 0 1px; white-space: pre;}
+.commandSeparatorCompact .framePress {margin: 0 -1px;}
+.commandSeparatorCompact .pressBefore, .commandSeparatorCompact .pressBefore:before {display: inline-block; font-size: 0 !important; width: 1px;}
+
+.commandSeparatorCompact .pressFirst + .framePress .pressOval {border-top-left-radius: var(--PRESS_OVAL_RADIUS); border-bottom-left-radius: var(--PRESS_OVAL_RADIUS);}
+.commandSeparatorCompact .pressLast + .framePress .pressOval {    border-top-right-radius: var(--PRESS_OVAL_RADIUS);     border-bottom-right-radius: var(--PRESS_OVAL_RADIUS);}
+html[dir=rtl] .commandSeparatorCompact .pressFirst + .framePress .pressOval i,
+html[dir=rtl] .commandSeparatorCompact .pressLast + .framePress .pressOval i {transform: scaleX(-1);}
+.commandSeparatorCompact .press {border-radius: 2px;}
+/* контейнер поля ввода в командной панели */
+.commandFieldBox {display: inline-block; position: relative; width: 15em; height: inherit; vertical-align: top;}
+.commandFieldBox .field {position: relative; height: inherit;}
+.commandFieldBox + .commandFieldBox {margin-left: 0.7em;}
+/* /end ------- command + buttons ------- .1 каркас командной панели */
+
+/* ------------ command + buttons ------- .2 общие стили для кнопок, внутренностей, состояний */
+/* framePress - контейнер для кнопки командной панели */
+.framePress {display: inline-block; position: relative; vertical-align: top;}
+/* framePressSearch - заглушка для скрытия кнопок между полем и "еще" */
+.framePressSearch {display: inline-block; width: 3.1em; height: inherit;}
+/* аналог display: none; для кнопки */
+.pressDisplay, .pressDisplay + .framePress {display: none;}
+/* pressBefore - отступ между кнопками */
+.pressBefore:first-child {display: inline-block; width: 0.000001em; height: inherit; vertical-align: top;}
+.pressBeforeMore:first-child {width: 0;}
+.pressBefore:before {content: ' '; font-size: 2.4em; line-height: 0;}
+/* press - кнопка */
+.press:before, .press i, .press i:before {border-radius: inherit;}
+/* значение  padding: 0 0.45em; должно соответствовать значению константы WebUI.Button.prototype.doPictResize_ в buttonui */
+.press {display: inline-flex; align-items: center; justify-content: center; border-radius: var(--PRESS_BORDER_RADIUS); color: var(--INTERFACE_COLOR); fill: var(--INTERFACE_COLOR); font-family: var(--INTERFACE_FONT_FAMILY); font-size: 1em; position: relative;padding: 0 0.45em; vertical-align: top; word-spacing: normal; z-index: 0; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;}
+.press {border-width: 0 1px; border-style: solid; border-color: transparent; max-width: 100%;}
+/* max-height если размер картинки больше, чем размер контейнера */
+.pressImg {flex: 0 0 auto; background-repeat: no-repeat; background-position: center; background-size: contain; position: relative; width: 16px; height: 16px; max-height: 100%;}
+.pressBox {flex: 1 1 auto; position: relative; max-height: 100%; min-height: 1.2em; line-height: 1.2; text-align: center; text-decoration: inherit; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;}
+.pressCommand .pressBox, .pressButton .pressBoxTitle {border-width: 0 0.45em; border-style: solid; border-color: transparent;}
+.pressCommand .pressBox {white-space: pre;}
+.pressDrop {display: inherit; position: relative; height: 0;}
+.pressDrop:after {content: ''; display: block; font-size: 0.9em; border-width: 0.25em 0.25em 0; border-style: solid; border-left-color: transparent; border-right-color: transparent;}
+.pressImg + .pressDrop:before {content: ''; display: block; width: 0.45em; overflow: hidden;}
+.pressNone .pressImg + .pressDrop:before, .pressLink .pressImg + .pressDrop:before {width: 0.15em;}
+/*  */
+.press i {border: 1px solid var(--PRESS_BORDER_COLOR); border-bottom-color: var(--PRESS_BORDER_BOTTOM_COLOR); background-color: var(--PRESS_BACKGROUND_COLOR); background-repeat: repeat-x; background-position: left bottom, 0 0; position: absolute; top: 0; right: -1px; bottom: 1px; left: -1px; z-index: -1; -webkit-box-shadow: 0 1px 0 0 var(--INTERFACE_BG_2); box-shadow: 0 1px 0 0 var(--INTERFACE_BG_2); background-image: linear-gradient(0deg, var(--INTERFACE_BG_05) 0%, rgba(255,255,255,0.1) 100%);}
+
+/* картинки справа */
+.pressImgRight .pressImg {order: 3;}
+/* овальные кнопки */
+.pressOval {border-radius: var(--PRESS_OVAL_RADIUS);}
+/* кнопка-пометка */
+.pressChecked i {border-color: var(--INTERFACE_BORDER_COLOR); background-image: url({{base}}e1csys/mngsrv/_pressChecked.png?sysver={{version}}); background-position: 0 0; -webkit-box-shadow: 0 2px 0 -1px var(--INTERFACE_BG_2) inset; box-shadow: 0 2px 0 -1px var(--INTERFACE_BG_2) inset;}
+/* цвет текста кнопок-ссылок */
+.pressLink {color: var(--INTERFACE_LINK_COLOR);}
+
+/* кнопки без оформления */
+.pressActive:not(.focus):not(.pressChecked):not(:HOVER):not(:ACTIVE) i, .pressNone i, .pressLink i {display: none;}
+.pressNone, .pressLink {cursor: pointer; border-width: 0; border-radius: 0; padding-right: 0 !important; padding-left: 0 !important;}
+.pressNone .pressImg, .pressLink .pressImg {margin: 0 0.15em;}
+.pressNone.pressCommand .pressBox, .pressLink.pressCommand .pressBox,
+.pressNone.pressButton .pressBoxTitle, .pressLink.pressButton .pressBoxTitle {border-width: 0 0.15em;}
+.pressNone:HOVER .pressBox, .pressNone:ACTIVE .pressBox {text-decoration: underline;}
+
+/* :HOVER, :ACTIVE и тд */
+.press:not(.pressNone):not(.pressLink):ACTIVE > span, .press:not(.pressNone):not(.pressLink):ACTIVE > svg {top: 1px;}
+.press:HOVER i:before, .press:ACTIVE i:before,
+.pressChecked i:before {content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+.press:HOVER i:before, .press:ACTIVE i:before {
+    -webkit-box-shadow: 0 0 0 1px var(--PRESS_BORDER_COLOR);
+    box-shadow: 0 0 0 1px var(--PRESS_BORDER_COLOR);
+}
+.press:HOVER i:before {background-color: var(--PRESS_HOVER_BACKGROUND_COLOR);}
+.press:ACTIVE i:before, .pressChecked i:before {background-color: var(--INTERFACE_BG_05);}
+.pressChecked:HOVER i:before {background-color: rgba(0, 0, 0, 0.035);}
+.pressChecked:ACTIVE i:before {background-color: var(--INTERFACE_BG_08);}
+.press:ACTIVE i {background-image: none; -webkit-box-shadow: 0 2px 0 0 var(--INTERFACE_BG_2) inset; box-shadow: 0 2px 0 0 var(--INTERFACE_BG_2) inset;}
+
+/* состояние фокуса */
+.focus.press:after {content: ''; background-color: rgba(255,255,255,0.01); position: absolute; top: 2px; right: 1px; bottom: 3px; left: 1px;}
+.focus.pressCommand:after, .focus.pressButton.pressNone:after {border: 1px dotted #000; border-image: url({{base}}e1csys/mngsrv/_focus.png?sysver={{version}}) 1 1 1 1 repeat repeat;}
+.focus.pressNone:after, .focus.pressLink:after {right: 0; left: 0;}
+.focus.pressButton.pressNone:after {top: 0; bottom: 0;}
+
+/* кнопка по умолчанию */
+.pressDefault {color: var(--IMPORTANT_COLOR_TEXT);}
+.pressDefault i {background-color: var(--IMPORTANT_COLOR_BACKGROUND);}
+
+/* кнопке "еще" немного другое оформление */
+.pressMore .pressBox {padding: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; /*-moz-box-sizing: border-box; -webkit-box-sizing: border-box;*/}
+/* перед кнопкой "еще" отступ по умолсчанию скрыт и нужен только если есть поле ввода */
+.pressBeforeMore {display: none !important;}
+.commandField .pressBeforeMore {display: inline !important;}
+/* commandMore - кнопка "еще" видима */
+.commandMore {width: auto;}
+.commandMore .pressMore, .commandMore .pressMorePadding {display: inline-flex;}
+/* pressMore - кнопка "еще" и отступ (pressMorePadding) между "еще" и кнопками левой части, если есть кнопка еще */
+/* аккуратно с условием! 20171397 и 20171524 */
+.pressMore, .command:not(.commandMore) .cloud + .pressMorePadding, .command:not(.commandMore) .pressBeforeMore + .framePress + .pressMorePadding {display: none;}
+.pressMorePadding {width: 0.65em; height: inherit; background: rgba(0,0,0,0);}
+/* для сжатия кнопки "еще" */
+.commandRight, .commandFieldBox, .framePress, .pressMore, .pressMore .pressBox {max-width: 100%;}
+
+/* недоступность */
+.pressCommand.pressDisabled:not(.pressActive):not(.pressNone):not(.pressLink):before, .pressDisabled.pressActive.pressChecked:before {content: ''; background-color: rgba(255,255,255,0.5); position: absolute; top: -1px; right: -1px; bottom: -1px; left: -1px; z-index: 1;}
+
+.pressActive.pressDisabled:not(.pressChecked), .pressNone.pressDisabled, .pressLink.pressDisabled {opacity: 0.5;}
+.command .pressDisabled, .ecsHeaderBtns .pressDisabled, .ecsButton .pressDisabled {z-index: -1;}
+/* /end ------- command + buttons ------- .2 общие стили для кнопок, внутренностей, состояний */
+
+/* ------------ command + buttons ------- .3 Отличие самостоятельной кнопки */
+/* frameButton - контейнер для самостоятельной кнопки
+.frameButton {
+    overflow: hidden;
+@mixin full_size(0);
+}
+.pressButton {
+    white-space: nowrap;
+    text-align: center;
+@mixin full_size(0);
+}
+.pressButton .pressImg {
+    max-width: 100%;
+}
+.pressButton .pressBox {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+.pressButton .pressBoxTitle {
+    width: 100%;
+    padding: 2px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}*/
+/* Кнопка "расширенный поиск"
+.pressButton .pressDrop {
+    order: 1;
+}
+.pressButton .pressDrop + .pressBox {
+    display: block !important;
+}
+.frameButton.pressDisabled:after {
+    content: '';
+    background-color: transparent;
+@mixin full_size(0);
+}
+.frameButton.pressDisabled .press:not(.pressActive):not(.pressNone):before {
+    content: '';
+    background-color: RGBA_COLOR_WHITE;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 1px;
+    left: -1px;
+    z-index: 1;
+}
+.frameButton.pressDisabled .pressActive, .frameButton.pressDisabled .pressNone {
+    opacity: 0.5;
+}*/
+
+/* Кнопка "Показатели производительности"
+#ServCntButton .press {
+    padding: 0 0 1px 0;
+}
+*/
+/* /end ------- command + buttons ------- .3 Отличие самостоятельной кнопки */
+
+/* ------------ command + buttons ------- .4 компактный режим
+.ICompactWeb .pressBefore:before {
+    font-size: 21px;
+}
+.ICompactWeb .press {
+    font-family: DEFAULT_GUI_FONT_FAMILY;
+    font-size: DEFAULT_GUI_FONT_SIZE;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+.ICompactWeb .pressCommand .pressBox, .ICompactWeb .pressButton .pressBoxTitle {
+    border-width: 0 3px;
+}*/
+/* /end ------- command + buttons ------- .4 компактный режим */
+/* ------------ command + buttons ------- .5 хак для Safari и iPad */
+@if (BROWSER_SAFARI) || (BROWSER_IPAD) {
+    .command {
+        word-spacing: normal;
+        letter-spacing: 1.2em;
+    }
+    .commandRight, .commandSeparator, .framePress {
+        letter-spacing: normal;
+    }
+}
+/* /end ------- command + buttons ------- .5 хак для Safari и iPad */
+
+/* ------------ command + buttons ------- .6 стили для масштабирования
+.zoom85 .pressImg {
+    width: 14px;
+    height: 14px;
+}
+.zoom125 .pressImg {
+    width: 20px;
+    height: 20px;
+}
+.zoom150 .pressImg {
+    width: 24px;
+    height: 24px;
+}
+.zoom175 .pressImg {
+    width: 28px;
+    height: 28px;
+}
+.zoom200 .pressImg {
+    width: 32px;
+    height: 32px;
+}
+.zoom300 .pressImg {
+    width: 48px;
+    height: 48px;
+}
+.zoom400 .pressImg {
+    width: 64px;
+    height: 64px;
+}*/
+/* /end ------- command + buttons ------- .6 стили для масштабирования */
+
+/* ------------ command + buttons ------- .7 .lfl - старый лейаутер
+.lfl .command {
+    height: 26px;
+    top: 2px;
+    overflow: hidden;
+}
+.lfl .press {
+    padding: 0 5px;
+}
+.lfl .pressButton .pressBoxTitle {
+    padding: 0 5px;
+}
+.ICompactWeb .lfl .command {
+    height: 22px;
+}
+.ICompactWeb .lfl .press {
+    padding: 0 2px;
+}*/
+/* /end ------- command + buttons ------- .7 .lfl - старый лейаутер */
+/* /end /////// command + buttons ------- //////////////////////// */

@@ -1,0 +1,170 @@
+/* //////////// topline ------- Заголовок формы ------- ///////
+      .0 хаки IE10
+      .1 общие стили
+      .2 отличия режимов
+
+   !!!!!!! ВНИМАНИЕ: - смотри .cloud .topline
+
+   !!!!!!! Внимание:
+   - cloud - отличия для заголовока окна, поиск по комментарию "топлайн (.topline)"
+   - toplineHomeHide - навешивается глубоко наверху - выключает домик где бы он ни был
+   - notNormalMainWindowMode - навешивается глубоко наверху - режим отличный от нормального
+
+   frameTopline - оболочка контрола
+   - toplineAllSurf / toplineModalSurf - серфейс топлайна (весь / без кнопок навигации)
+   topline - контейнер контрола
+   toplineLeft, toplineCenter, toplineRight - ячейки/стороны топлайна
+   toplineBox + toplineBoxTitle - заголовок топлайна, с подсказкой при необходимости
+
+   toplinePress - кнопки левой части
+   - toplineHome, toplinePrev, toplineNext, toplineStar - принадлежность кнопки
+   disabled - недоступная кнопка
+
+   //////////////////////////////////////////////////////////// */
+
+/* ------------ topline ------- .1 общие стили */
+.toplineHome, .toplineNav, .toplineCenter, .toplineStar, .toplineBox {
+    margin: 0 4px;
+}
+.toplineLeft, .toplineCenter, .toplineRight, .toplineNav {
+    height: inherit;
+}
+.frameTopline, .topline {
+    position: absolute;
+    height: 42px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+}
+.topline {
+    font-weight: normal;
+    height: 24px;
+    padding: 9px;
+}
+.topline svg {
+    fill: var(--INTERFACE_COLOR);
+}
+.toplineLeft, .toplineCenter, .toplineRight {
+    position: relative;
+}
+.toplineLeft {
+    z-index: 0;
+}
+.toplineRight {
+    margin: 0 -3px;
+}
+.toplineRight > * {
+    margin: 0 3px 20px;
+}
+.toplineRight .press {
+    word-break: break-all;
+}
+
+.topline .pressCommand i {
+    bottom: 0;
+}
+.toplineNext {
+    border-left-color: var(--INTERFACE_BG_2) !important;
+}
+
+.toplineStar use:first-child {
+    fill: transparent;
+}
+.active.toplineStar use:first-child {
+    fill: var(--INTERFACE_COLOR_ORANGE);
+}
+.toplineStar use + use {
+    opacity: 0.2;
+}
+.toplineStar:HOVER use + use {
+    opacity: 0.3;
+}
+.disabled.toplineStar {
+    position: relative;
+    z-index: -1;
+}
+
+.toplineBox, .toplineBoxTitle {
+    display: block;
+    overflow: hidden;
+}
+.toplineBox {
+    font-size: 1.4em;
+    position: relative;
+    width: 100%;
+    min-width: 2em;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+.toplineBox:after {
+    content: attr(data-title);
+    display: block;
+    color: var(--INTERFACE_COLOR);
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 0;
+}
+.toplineBoxTitle {
+    position: absolute;
+    right: 0;
+    top: -1.5em;
+    left: 0;
+    z-index: 1;
+}
+.toplineBoxTitle:before {
+    content: attr(title);
+    display: inline-block;
+    color: transparent;
+    word-break: break-all;
+}
+
+/* Сёрфейс топлайна */
+.toplineAllSurf .topline:after, .toplineModalSurf .topline:after {
+    content: '';
+    background-color: var(--INTERFACE_BG_05);
+    position: absolute;
+    top: -12px;
+    right: 0;
+    bottom: -12px;
+    left: 0;
+}
+.toplineModalSurf .toplineLeft {
+    background: #fff;
+    z-index: 1;
+    box-shadow: 0 0 0 8px #fff;
+}
+/* /end ------- topline ------- .1 общие стили */
+/* ------------ topline ------- .2 отличия режимов */
+/* Скрывает домики для всех форм (например, при наличии панели открытых и домика в ней) */
+.toplineHomeHide .toplineHome {
+    display: none;
+}
+/* режим отличный от нормального */
+.notNormalMainWindowMode .toplineCenter {
+    margin: 0;
+}
+/* облачное отличие топлайн (.topline)  */
+.cloud .toplineLeft, .cloud .disabled.toplineStar {
+    display: none;
+}
+/* минимайзное отличие топлайн (.topline) */
+.cloudMinimize .frameTopline, .cloudMinimize .topline {
+    height: 20px;
+    padding: 0;
+}
+.cloudMinimize .toplineBox {
+    font-size: var(--INTERFACE_FONT_SIZE);
+}
+.cloudMinimize .topline .ico {
+    margin: 0;
+    padding: 2px 8px;
+}
+.cloudMinimize .topline .ico:before {
+    border-radius: 0;
+}
+/* /end ------- topline ------- .2  отличия режимов */
+/* /end /////// topline ------- //////////////////////// */

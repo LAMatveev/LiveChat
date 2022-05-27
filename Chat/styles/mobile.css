@@ -1,0 +1,142 @@
+.ecs-base {-moz-text-size-adjust: none; -webkit-text-size-adjust: none;}
+
+/** Значения необходимо синхронизировать с kMobilePortraitInterfaceFontSizeValue */
+.mobileP {--INTERFACE_FONT_SIZE: 4.5vw;}
+.mobileL {--INTERFACE_FONT_SIZE: 2vw;}
+
+
+.ecs-chat-hide.mobile {--INTERFACE_FONT_SIZE: 32vw;}
+.ecs-chat-hide .frameContent {padding-top: 0;}
+.ecs-chat-hide .ecsTopline, .ecs-chat-hide .ecsHeader {height: 100%;}
+.ecs-chat-hide .ecsHeader {justify-content: center; padding: 0;}
+
+.ecsIncoming.cloudBox {right: 0.9em; left: 0.9em;}
+
+.noneMobile {display: none !important;}
+
+.head {padding-right: 0.3em; padding-left: 0.3em;}
+.outSearch:before {content: ''; display: inline-block; width: 0.3em;}
+
+.ecsContent .ecsChatWho {min-height: 2.4em; margin-right: 0.3em; margin-left: 0.3em;}
+
+.ecsThemes, .ecsMain, .ecsContext, .ecsThemes .fs-8 {font-size: 1em;}
+.ecsChatItem .fs40, .ecsThemes .fs24 {font-size: 2.4em;}
+
+.frameMenu {position: absolute; max-width: 100%; margin: 0; opacity: 1; box-shadow: none;}
+
+.ecsMembers {margin-top: 0.45em;}
+.ecsMembersItem > * {margin: 0;}
+.cloud .ecsMembersItem > * {margin: 0.15em;}
+
+.outSearch .press {padding: 0 0.75em;}
+.press, .ecsAnswer {padding: 0 0.6em;}
+.pressActive i, .pressBefore {display: none;}
+.pressActive:ACTIVE > span {top: 0 !important;}
+.pressActive:ACTIVE:before {content: ''; background: var(--INTERFACE_BG_08); border-radius: 50%; position: absolute; width: 2em; height: 2em;}
+
+.ecsVideo {padding-bottom: 3.5em;}
+.ecsVideoUsers .i16 {font-size: 1.5em;}
+
+/* перебить под правых? */
+.ecsChatItem .ecsAvatar {float: left; margin: 0 0.2em;}
+
+.ecs-chat-hide .ecsHeaderIco + div {display: none;}
+
+.ecsChatBox {max-width: 74%;}
+.ecsChatDate {width: auto; margin-right: 0.2em; margin-left: 0.2em;}
+
+.ecsListItem {background-color: var(--INTERFACE_BACKGROUND_COLOR); color: var(--INTERFACE_COLOR);}
+.select.ecsListItem {background-color: var(--ACTIVITY_COLOR_BACKGROUND); color: var(--ACTIVITY_COLOR_TEXT);}
+
+.ecsThemes {background: var(--INTERFACE_BACKGROUND_COLOR); position: absolute; width: 100%;  bottom: 0; top: 0; margin: 0;}
+
+.cloud {max-width: 100% !important; box-sizing: border-box;}
+.cloudDark .frameTopline {background: var(--INTERFACE_BACKGROUND_COLOR);}
+.cloud.fullscreened {border: 0 none;}
+.cloud.fullscreened .topline {height: auto; margin: 0.6em 0.45em;}
+.cloud.fullscreened .toplineBox {font-size: 1em;}
+.cloudCard {min-width: auto; max-width: 100%;}
+.panelsShade {-webkit-box-shadow: none; box-shadow: none;}
+.cloud, .frameMenu > *, .ecsThemes > *, .ecsVideoList {opacity: 1;}
+.cloud.hide, .frameMenu.hide > *, .ecsThemes.hide > *, .ecsVideoList.hide {opacity: 0;}
+
+.ecsThemes.hide {margin: 0 102%;}
+.frameMenu.hide {margin: 0 -102%;}
+.ecsVideoList.hide {width: 0;}
+.ecsVideoList {width: 9em; position: absolute;}
+
+.embeded {right: 0;}
+html[dir=rtl] .embeded {right: auto; left: 0;}
+
+.cloud, .ecsVideoList {
+    transition: margin 0.5s, opacity 0.5s, background-color 0.5s, font-size 0.5s, color 0.5s, width 0.5s;
+    -webkit-transition: margin 0.5s, opacity 0.5s, background-color 0.5s, font-size 0.5s, color 0.5s, width 0.5s;
+    -moz-transition: margin 0.5s, opacity 0.5s, background-color 0.5s, font-size 0.5s, color 0.5s, width 0.5s;
+    -ms-transition: margin 0.5s, opacity 0.5s, background-color 0.5s, font-size 0.5s, color 0.5s, width 0.5s;
+}
+.frameMenu, .ecsThemes {
+    transition: margin 0.5s;
+    -webkit-transition: margin 0.5s;
+    -moz-transition: margin 0.5s;
+    -ms-transition: margin 0.5s;
+}
+.frameMenu > *, .ecsThemes > * {
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+}
+.frameMenu, .frameMenu > * {
+    transition-delay: .25s;
+    -moz-transition-delay: .25s;
+    -webkit-transition-delay: .25s;
+}
+
+.mobileP .frameAvaEdit {
+    flex-direction: column;
+    padding-top: 0.9em;
+}
+.mobileL .frameAvaEdit {
+    padding-top: 0.9em;
+}
+.mobileL:not(.ecs-chat-hide) .ecsHeader {height: 2.3em;}
+.mobileL .frameContent {padding-top: 2.9em;}
+.mobileL .embedded {top: 3.9em;}
+.mobileL .ecsIncoming.cloudBox {top: 3.5em;}
+.mobileL .ecsVideo {top: 2.9em; padding-bottom: 0;}
+.mobileL .videoChat {border-top-width: 0.5em; border-bottom-width: 2.4em;}
+.mobileL .videoMine {margin: 0 0.5em 0.5em;}
+.mobileL .ecsVideoPress {border-bottom-width: 0.6em;}
+
+.ecsListItem.select {
+    animation: ecsListItemSelect 4s;
+    animation-iteration-count: 1;
+}
+@keyframes ecsListItemSelect {
+    0% {
+        background-color: var(--INTERFACE_BACKGROUND_COLOR);
+        color: var(--INTERFACE_COLOR);
+    }
+    50% {
+        background-color: var(--ACTIVITY_COLOR_BACKGROUND);
+        color: var(--ACTIVITY_COLOR_TEXT);
+    }
+    100% {
+        background-color: var(--INTERFACE_BACKGROUND_COLOR);
+        color: var(--INTERFACE_COLOR);
+    }
+}
+.cloud.fullscreened {
+    animation: cloudFullscreened 0.25s;
+    animation-iteration-count: 1;
+}
+@keyframes cloudFullscreened {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

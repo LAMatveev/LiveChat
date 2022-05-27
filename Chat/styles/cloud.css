@@ -1,0 +1,36 @@
+.cloud {
+    position: absolute;
+    max-width: 100%;
+    line-height: 1.2;
+}
+
+.cloudDark {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.cloudDD {
+    border-radius: 1px;
+    -webkit-box-shadow: 0 0 0 3px var(--INTERFACE_COLOR_ONE);
+    box-shadow: 0 0 0 3px var(--INTERFACE_COLOR_ONE);
+}
+.cloudDB {
+    border: 4px double var(--INTERFACE_BORDER_COLOR);
+}
+.cloudBox {
+    display: flex;
+    padding: 0 10px 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+body:not(.ecs-chat) .cloudBox {
+    flex-direction: column;
+}
+.cloudRow {
+    flex: 0 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+.cloudMinimize .cloudBox {
+    padding: 0;
+}

@@ -1,0 +1,4 @@
+import { ChatVideoCallInvitationFormComponentInternal } from 'scripts/UiComponents/ChatVideoCallInvitationForm/ChatVideoCallInvitationFormComponentInternal';
+import 'scripts/UiComponents/ChatVideoCallInvitationForm/ChatVideoCallInvitationFormComponentView';
+
+export { ChatVideoCallInvitationFormComponentInternal as ChatVideoCallInvitationFormComponent };

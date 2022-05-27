@@ -1,0 +1,162 @@
+:root {
+    --INTERFACE_FONT_FAMILY: 'Almarai', Roboto, sans-serif;
+
+    --INTERFACE_BACKGROUND_COLOR: #FFF;
+    --INTERFACE_COLOR: #313235;
+    --INTERFACE_TEXT_BACKGROUND_COLOR: #F4F6F8;
+    --INTERFACE_TEXT_OWNER_BACKGROUND_COLOR: #EAF3FA;
+
+    --INTERFACE_LINK_COLOR: #1284F6;
+    --INTERFACE_COLOR_RED: #FF2424;
+    --INTERFACE_COLOR_GREEN: #30A749;
+
+    --INTERFACE_INCOMING_SHADOW: rgba(35, 35, 32, 0.16);
+
+    --INTERFACE_SVG: rgba(49,50,53,0.7);
+    --INTERFACE_SVG_GREEN: #00BF0A;
+    --INTERFACE_SVG_GREEN_EXCEL: #037636;
+    --INTERFACE_SVG_RED_PDF: #D41A1A;
+    --INTERFACE_SVG_GREEN_ODC: #3C8217;
+    --INTERFACE_SVG_BLUE_ODF: #687B8B;
+
+    --INTERFACE_SCROLL: url(../images/_scroll.svg);
+
+
+    --INTERFACE_BG_05: rgba(0,0,0,0.05);
+    --INTERFACE_BG_08: rgba(0,0,0,0.08);
+    --INTERFACE_BG_1: rgba(0,0,0,0.1);
+    --INTERFACE_BG_2: rgba(0,0,0,0.2);
+    --INTERFACE_BG_3: rgba(0,0,0,0.3);
+    --INTERFACE_BG_4: rgba(0,0,0,0.4);
+    --INTERFACE_BG_5: rgba(0,0,0,0.5);
+
+    --INTERFACE_BACKGROUND_COLOR_75: rgba(255, 255, 255, 0.75);
+    --INTERFACE_COLOR_INTENSIVE: rgba(0,0,0,1);
+    --INTERFACE_COLOR_ONE: #E6E6E6;
+    --INTERFACE_COLOR_HINT: #CCC;
+
+    --INTERFACE_ACCENT_COLOR: #009646;
+    --IMPORTANT_BACKGROUND_COLOR: #FFD700;
+    --IMPORTANT_COLOR: var(--INTERFACE_COLOR);
+
+    --INTERFACE_BORDER_COLOR: #A0A0A0;
+    --INTERFACE_BORDER_COLOR_LIGHT: #B3B3B3;
+
+    --HEAD_BACKGROUND_COLOR: #FBED9E;
+    --HEAD_HOVER_BACKGROUND_COLOR: #E2D485;
+    --HEAD_FOCUS_BACKGROUND_COLOR: #BCAE5F;
+
+    --INTERFACE_SCROLLBAR_TRACK_BACKGROUND_COLOR: #D6D6D6;
+    --INTERFACE_SCROLLBAR_THUMB_BACKGROUND_COLOR: #9A9A9A;
+    --INTERFACE_SCROLLBAR_THUMB_HOVER_BACKGROUND_COLOR: #757575;
+    --INTERFACE_SCROLLBAR_BUTTON_BACKGROUND_COLOR: #C2C2C2;
+    --INTERFACE_SCROLLBAR_BUTTON_HOVER_BACKGROUND_COLOR: #202020;
+
+    --INTERFACE_COLOR_ORANGE: #FACC1F;
+    --INTERFACE_PRESS_HEIGHT: 2.025em;
+    --ECS_PADDING: 0.6em;
+    --PRIMARY_COLOR_BACKGROUND: #FBED9E;
+    --PRIMARY_COLOR_TEXT: #333;
+    --SECONDARY_COLOR_BACKGROUND: #FFFFD9;
+    --SECONDARY_COLOR_TEXT: #333;
+    --ACTIVITY_COLOR_BACKGROUND: #FACC1F;
+    --ACTIVITY_COLOR_BACKGROUND_75: #FEF2C7;
+    --ACTIVITY_COLOR_TEXT: #333;
+    --ACCENT_COLOR_BACKGROUND: #009646;
+    --ACCENT_COLOR_TEXT: #009646;
+    --IMPORTANT_COLOR_BACKGROUND: #FFE100;
+    --IMPORTANT_COLOR_TEXT: #333;
+    --ECS_VIDEO_BACKGROUND_TRANSPARENT: RGBA(51,51,51,0.75);
+
+    --SHADOW_WIDTH: 3px;
+    --SHADOW_SPREAD: -1px;
+    --SHADOW_ALPHA: 0.5;
+}
+
+[data-theme="dark"]
+{
+    --INTERFACE_BACKGROUND_COLOR: #363636;
+    --INTERFACE_COLOR: #FFF;
+    --INTERFACE_TEXT_BACKGROUND_COLOR: rgba(244,244,244,0.25);
+    --INTERFACE_TEXT_OWNER_BACKGROUND_COLOR: rgba(224,233,244,0.25);
+
+    --INTERFACE_LINK_COLOR: #8AB4F8;
+
+    --INTERFACE_INCOMING_SHADOW: rgba(215, 215, 215, 0.16);
+
+    --INTERFACE_SVG: rgba(255,255,255,0.7);
+    --INTERFACE_SVG_GREEN: #00d80b;
+    --INTERFACE_SVG_GREEN_EXCEL: #029543;
+    --INTERFACE_SVG_RED_PDF: #FF0000;
+    --INTERFACE_SVG_GREEN_ODC: #409D0E;
+    --INTERFACE_SVG_BLUE_ODF: #768FA4;
+
+    --INTERFACE_SCROLL: url(../images/_scrollDark.svg);
+
+
+    --INTERFACE_BG_05: rgba(255, 255, 255, 0.05);
+    --INTERFACE_BG_08: rgba(255, 255, 255, 0.08);
+    --INTERFACE_BG_1: rgba(255, 255, 255, 0.1);
+    --INTERFACE_BG_2: rgba(255, 255, 255, 0.2);
+    --INTERFACE_BG_3: rgba(255, 255, 255, 0.3);
+    --INTERFACE_BG_4: rgba(255, 255, 255, 0.4);
+    --INTERFACE_BG_5: rgba(255, 255, 255, 0.5);
+
+    --INTERFACE_BACKGROUND_COLOR_75: rgba(54, 54, 54, 0.75);
+    --INTERFACE_COLOR_INTENSIVE: rgba(255, 255, 255, 1);
+    --INTERFACE_COLOR_ONE: #2E2E2E;
+    --INTERFACE_COLOR_HINT: #4C4C4C;
+
+    --INTERFACE_BORDER_COLOR: #5F5F5F;
+    --INTERFACE_BORDER_COLOR_LIGHT: #4C4C4C;
+
+    --INTERFACE_ACCENT_COLOR: #7DC667;
+    --IMPORTANT_BACKGROUND_COLOR: #2C599E;
+    --IMPORTANT_COLOR: var(--INTERFACE_COLOR);
+
+    --HEAD_BACKGROUND_COLOR: #292A2D;
+    --HEAD_HOVER_BACKGROUND_COLOR: #343538;
+    --HEAD_FOCUS_BACKGROUND_COLOR: #404144;
+
+    --INTERFACE_SCROLLBAR_TRACK_BACKGROUND_COLOR: #414347;
+    --INTERFACE_SCROLLBAR_THUMB_BACKGROUND_COLOR: #56595E;
+    --INTERFACE_SCROLLBAR_THUMB_HOVER_BACKGROUND_COLOR: #64676D;
+    --INTERFACE_SCROLLBAR_BUTTON_BACKGROUND_COLOR: #56595E;
+    --INTERFACE_SCROLLBAR_BUTTON_HOVER_BACKGROUND_COLOR: #64676D;
+}
+
+/* это всего лиш кусочек от оригинала - разнести оригинал? */
+.ecs-body { /*line-height: 1.2; */cursor: default; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-touch-callout: none; overflow: hidden; position: absolute; top: 0; right: 0; bottom: 0; left: 0; -moz-user-select: none; -webkit-user-select: none;}
+.ecs-base button, .ecs-base code, .ecs-base em, .ecs-base input, .ecs-base strong, .ecs-base textarea, .ecs-base var {font: inherit;}
+.ecs-base {color: var(--INTERFACE_COLOR); font-family: var(--INTERFACE_FONT_FAMILY); font-size: var(--INTERFACE_FONT_SIZE);}
+.ecs-base a {color: var(--INTERFACE_LINK_COLOR);}
+
+.ecs-base input, .ecs-base textarea {background-color: var(--INTERFACE_BACKGROUND_COLOR); color: var(--INTERFACE_COLOR); border: 0 none; text-align: inherit; line-height: 1.5em; -moz-user-select: text; -webkit-user-select: text;}
+.ipad input, .ipad-safari6 input, .ipad textarea, .ipad-safari6 textarea {-webkit-appearance: none; border-radius: 0;}
+
+/* ------------ base ------- .2 стили для иконок свг */
+.ecs-base svg {fill: inherit; position: relative; width: inherit; height: inherit; max-width: 100%; max-height: 100%; pointer-events: none;}
+/* [text-rendering] атрибут для svg-диаграмы */
+.ecs-base svg[text-rendering] {pointer-events: auto;}
+.ico {fill: var(--INTERFACE_COLOR); display: inline-flex; flex: 0 0 auto; justify-content: center; align-items: center; position: relative; width: 16px; height: 16px}
+.ico-20 {padding: 0.15em;}
+.ico-24 {padding: 0.3em;}
+.ico-28 {padding: 0.45em;}
+.iHoverRound:not(.disabled):HOVER:before, .iHoverRoundInvert:before {content: ''; border-radius: 50%; position: absolute; top: 0; right: 0; bottom: 0; left: 0;  opacity: 0.1; box-shadow: 0 0 0 2em inset;}
+.iHoverRoundInvert:before {opacity: 0.7;}
+.iHoverRoundInvert:not(.disabled):HOVER:before {opacity: 0.9;}
+.iHoverRoundInvert {fill: var(--CHAT_HEADER_BACKGROUND_COLOR) !important;}
+.iHoverDark {fill: var(--INTERFACE_COLOR); color: var(--INTERFACE_COLOR); cursor: pointer;}
+.iHoverDark:HOVER {fill: var(--INTERFACE_COLOR_INTENSIVE); color: var(--INTERFACE_COLOR_INTENSIVE);}
+.iHoverOpacity {cursor: pointer;}
+.iHoverOpacity:not(:HOVER) {opacity: 0.7;}
+.ico.disabled {opacity: 0.5;}
+.hiddenContainer {position: absolute; top: -100000px;}
+
+.highlight {color: var(--INTERFACE_ACCENT_COLOR); font-weight: bold;}
+
+.embedded {display: flex; font-size: 0.8em; color: var(--INTERFACE_COLOR); background-color: var(--INTERFACE_BACKGROUND_COLOR); border-radius: 0 0 0 0.6em; border-width: 0.6em 0.3em 0.6em 0.9em; border-style: solid; border-color: transparent; top: 4.9em; right: 1.1em; position: fixed; line-height: 1em; pointer-events: none;}
+html[dir=rtl] .embedded {border-radius: 0 0 0.6em 0; border-width: 0.6em 0.9em 0.6em 0.3em; right: auto; left: 1.1em;}
+.embeddedText {opacity: 0.5;}
+.embeddedIco {fill: inherit; width: 2.1em; height: 1.05em; margin: 0 0.5em; opacity: 0.75;}
+.embeddedIco .ico {width: inherit; height: inherit;}

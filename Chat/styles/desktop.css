@@ -1,0 +1,41 @@
+:root {
+    /** Значение необходимо синхронизировать с kDesktopInterfaceFontSizeValue */
+    --INTERFACE_FONT_SIZE: 10pt;
+}
+.noneDesk {display: none !important;}
+
+body:not(.ecs-chat) .frame {padding: 0 0.6em;}
+.ecsThemes {min-width: 33%;}
+.ecsThemes.hide {display: none;}
+
+.ecsContent .ecsChat {padding: 0 0 0 3.75em;}
+html[dir=rtl] .ecsContent .ecsChat {padding: 0 3.75em 0 0;}
+
+.ecsChatService {margin: 0 -3em;}
+.ecs-chat-avatar-hide .ecsChatService {margin: 0 -0.15em;}
+.ecsChatDate {justify-content: center; padding: 0 1.8em; margin-right: -3.6em; margin-left: -3.6em;}
+.ecsContent .ecsAvatar {margin: 0 -1em; position: absolute;}
+/* отключение отображения аватара */
+.ecs-chat-avatar-hide .ecsChat {padding: 0 0 0 0.9em;}
+html[dir=rtl] .ecs-chat-avatar-hide .ecsChat {padding: 0 0.9em 0 0;}
+
+.ecsThemesHeader {margin-top: -0.75em;}
+
+/* демонстрация экрана */
+.videoStatusScreenSharing:after {content: ''; flex: 1 1 100%;}
+.screenSharing .ecsVideoUsers:not(:HOVER) .ecsVideoList, .screenSharing .ecsVideoPress:not(:HOVER) {opacity: 0;}
+.screenSharing .ecsVideoUsers {position: absolute; top: 0; bottom: 0; width: 4.5em; z-index: 6;}
+.screenSharing .ecsVideoPress {background: var(--ECS_VIDEO_BACKGROUND_TRANSPARENT); bottom: -0.8em; pointer-events: auto;}
+.screenSharing .ecsVideoUsers:HOVER {width: 9em;}
+.screenSharing .ecsVideoPress:HOVER {bottom: 0;}
+
+/* Для окна просмотра картинок */
+.cloudDark, .cloudDark .frameTopline {
+    background: rgba(0, 0, 0, 0.5);
+}
+.cloudDark .toplineBox:after {
+    color: #FFF;
+}
+.cloudDark svg {
+    fill: #FFF;
+}

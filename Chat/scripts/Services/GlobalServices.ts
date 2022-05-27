@@ -1,0 +1,11 @@
+// tslint:disable:no-import-side-effect
+import '@1c/g5-client-base/Ecs/Services/OrientationService/OrientationService';
+import '@1c/g5-client-base/Ecs/Services/UnitConverterService/UnitConverterService';
+import '@1c/g5-client-base/Ecs/Services/UserOptionsService/UserOptionsService';
+import '@1c/g5-client-base/Ecs/Services/VisibilityService/VisibilityService';
+import '@1c/g5-client-base/Site/scripts/Services/AudioService/AudioService';
+import '@1c/g5-client-base/Site/scripts/Services/EcsApplicationService/EcsApplicationService';
+import '@1c/g5-client-base/Site/scripts/Services/EditDtopDownService/EditDropDownService';
+import '@1c/g5-client-base/Site/scripts/Services/NotificationService/NotificationService';
+import '@1c/g5-client-base/View/ReactDOM/ComponentsViewService';
+import 'scripts/Services/ChatVideoService/ChatVideoService';

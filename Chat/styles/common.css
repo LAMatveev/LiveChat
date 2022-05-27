@@ -1,0 +1,31 @@
+html[dir=rtl] {text-align: right;}
+html[dir=rtl] .rtlScale {transform: scaleX(-1);}
+
+.taS, [dir=rtl] [dir=ltr] .taS {text-align: left;}
+.taE, [dir=rtl] [dir=ltr] .taE {text-align: right;}
+[dir=rtl] .taS {text-align: right;}
+[dir=rtl] .taE {text-align: left;}
+
+html .floatStart {float: left;}
+html .floatEnd {float: right;}
+html[dir=rtl] .floatStart {float: right;}
+html[dir=rtl] .floatEnd {float: left;}
+
+.absolute {position: absolute;}
+.relative {position: relative;}
+
+.fullSize {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+
+.maxSize {max-width: 100%; max-height: 100%;}
+
+.movable {position: fixed; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.01); z-index: 10000000;}
+
+.anchor {position: absolute; max-width: 0; max-height: 0;}
+.noselect {-ms-user-select: none; -moz-user-select: none; -webkit-user-select: none;}
+
+.loading {display: block; background-size: 100%; position: absolute; width: 80px; height: 80px; animation: loading 1s linear infinite; background: url(../images/_loading.svg) no-repeat center center;}
+.ecsVideo .loading {align-self: center;}
+/*@keyframes loading {0% {
+    -webkit-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg); -ms-transform: rotate(360deg); transform: rotate(360deg);}
+}*/

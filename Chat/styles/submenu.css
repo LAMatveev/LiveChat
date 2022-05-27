@@ -1,0 +1,31 @@
+.frameSubmenu {background: var(--INTERFACE_BACKGROUND_COLOR); position: relative; top: 0; padding: 1px 2px 0; margin: -2px -3px; z-index: 0;}
+.submenu {display: block; position: relative; margin: 3px 0; padding: 0 2px; z-index: 1;}
+.submenu:before {content: ''; border-top: 1px solid var(--INTERFACE_COLOR_HINT); position: absolute; top: -2px; right: 2px; bottom: 0; left: 2px;}
+
+.submenuBlock {display: flex; justify-content: space-between; fill: var(--INTERFACE_COLOR); position: relative; line-height: 1.2em; z-index: 0;}
+.submenuName, .submenuTitle {display: inherit; position: relative;}
+.submenuName {white-space: nowrap; margin: .6em 1.2em;}
+.submenuTitle {margin: .6em 1.6em; opacity: .5;}
+.submenuIco {background-repeat: no-repeat; background-position: center center; position: absolute; width: 1em; height: 1em;}
+.submenuText {margin: 0 2.4em;}
+.submenuDrop {align-self: center; display: block; border-width: .4em; border-right-width: 0; border-style: solid; border-top-color: transparent; border-bottom-color: transparent; height: 0; margin: 0 .5em; line-height: 0;}
+
+.submenuBlockChecked .submenuName:before {content: ''; border: 1px solid var(--ACTIVITY_COLOR_BACKGROUND);  /* TODO background: url(...) */background-size: 1.2em; position: absolute; top: -0.3em; right: -0.3em; bottom: -0.3em; left: -0.3em; width: 1.2em; height: 1.2em; margin: -1px; padding: 0.3em; z-index: -1;}
+.submenuBlockChecked .submenuName:before, .submenuBlockChecked .submenuIco {background-color: var(--ACTIVITY_COLOR_BACKGROUND_75);}
+
+.submenuBlockDisabled.submenuBlock {z-index: -1;}
+.submenuBlockDisabled .submenuName, .submenuBlockDisabled .submenuDrop {opacity: 0.5;}
+.submenuBlock.select {fill: var(--ACTIVITY_COLOR_TEXT); color: var(--ACTIVITY_COLOR_TEXT); background-color: var(--ACTIVITY_COLOR_BACKGROUND);}
+
+#editDropDown {color: var(--INTERFACE_COLOR); background-color: var(--INTERFACE_BACKGROUND_COLOR); width: 100%; height: 100%; overflow: hidden;}
+#editDropDown > div + div, .eddSeparator {border-top: 1px solid var(--INTERFACE_BORDER_COLOR_LIGHT);}
+.eddSeparator, .eddList {margin: 0.075em 0;}
+.eddTop, .eddBottom {flex: 1 1 auto; color: var(--INTERFACE_COLOR); padding: 0.45em 1.2em;}
+.eddTop {margin-top: 0.15em; line-height: 1.8em;}
+.eddMiddle {overflow-y: auto; overflow-x: hidden; white-space: nowrap; line-height: 2.175em;}
+.eddBottom {display: flex; align-items: center; justify-content: space-between; position: relative;}
+.eddList LI { display: flex; align-items: center; padding: 0 0.6em; white-space: pre; overflow: hidden; text-overflow: ellipsis;}
+.eddList LI > div, .eddSearch, .eddIco {margin: 0 0.6em;}
+.eddIco {background-repeat: no-repeat; background-position: center center; background-size: contain; width: 1em; height: 1em; fill: var(--INTERFACE_COLOR); justify-content: center; align-items: center; display: inline-flex;}
+.eddPlus {display: inline-block; color: var(--INTERFACE_COLOR_GREEN); font-family: Arial, sans-serif; font-size: 1.6em; font-weight: bold; vertical-align: middle; line-height: 0;}
+.eddList LI.select {color: var(--ACTIVITY_COLOR_TEXT); background-color: var(--ACTIVITY_COLOR_BACKGROUND);}

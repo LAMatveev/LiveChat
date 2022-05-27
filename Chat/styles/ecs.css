@@ -1,0 +1,584 @@
+/* //////////// ------- Содержание:
+   //////////// ECS ------- Мои обсуждения
+   //////////// ecsCloud ------- Облака для ECS
+   //////////// ecsVideo ------- Групповые видеозвонки
+   //////////// ecsUnread ------- Непрочитанные сообщения (captionbar, opened, topline)
+   //////////////////////////////////////////////////////////// */
+
+/* //////////// ECS ------- Мои обсуждения ------- ///////
+      .1 общие стили - каркасы
+      .2 поля ввода
+      .3 списки тем / участников
+      .4 болталка
+      .5 пути к типам файлов, приложенных к сообщению ECS и прочие иконки для файлов
+
+   ecsMain - неконтекстное обсуждение
+   ecsContext - контекстное обсуждение
+   ecsThemes - список тем/участников
+
+   ecsTopline - заголовочная область неконтекстного обсуждения
+   ecsHeader - заголовочный контент
+
+   ecsAvatar - определение аватара
+   + (еще в cloudCard, captionbar)
+   ecsStatus - круг доступности (user online)
+   - ecsStatusDnd - круг недоступности
+   - ecsStatusAway - круг желтый
+   - ecsStatusBlocked - круг серый
+
+   ecsSettings - ссылка "Настройки"
+   pressImg + disabled
+
+   ecsOnAir - идет видеозвонок (меняется иконка камеры)
+   ecsNotifyHigh - оповещать обо всех новых сообщениях
+   ecsNotifyMedium - не беспокоить
+   ecsNotifyOff - оповещать только о новых сообщениях, адресованных мне
+
+   ecsSearch - контейнер поля поиска :
+   - ecsSearchShow - показать поле поиска в неконтекстных обсуждениях
+
+   ecsEdit - label поля ввода
+   - ecsEditLine - наличие у поля подчеркивания
+   - focus - фокусирование подчеркивания
+   > ecsEditField - оболочка вокруг инпута с фокусной линией
+
+   ecsSearchHighLight, ecsSearchCurrentHighLight - подсветка поиска в чате
+
+   ecsList - список тем
+   > ecsListItem :
+     - select - активная тема
+     - болд - непрочитанная тема
+     > ecsListItemBox - название темы
+
+   ecsMembersGroup - группа участников видеозвонка
+   ecsMembersCount - количество участников видеозвонка
+   ecsMembers - список участников неконтекстных обсжудений
+   > ecsMembersItem - один участник
+
+   ecsChat + ecsChatBlock - чат
+   ecsChatDate - дата
+   ecsChatTyping - надпись "Печатает..."
+
+   ecsChatItem - одно сообщение :
+   - ecsChatItemOwner - собственное сообщение
+   - ecsChatItemJoined - присоединенное сообщение
+   - ecsChatItemService - системное сообщение
+   - ecsMessageSelect - выбранное сообщение
+   - ecsMessageEdit - редактируемое сообщение
+   - ecsMessageBlink - переход к сообщению по ссылке
+
+   ecsChatWho - блок "автор"
+   ecsChatWhom - строка "кому" контекстных обсуждений
+   > ecsChatName - одно имя
+     - select - "я"
+
+   ecsChatBox - текст сообщения
+
+   > ecsChatInfo - время и иконки :
+     - escHasNotLoadedAttachment - процесс загрузки файлов
+     > ecsChatInfoIco - иконка если есть
+
+   > ecsChatText - текст сообщения
+     > ecsChatTextDeleted - удаленное сообщение
+     > ecsChatBR - разделитель между текстом и аттачами
+     > ecsChatFile - аттач
+     > ecsChatActions + ecsChatAction - какие-то экшены (ссылки)
+
+   ecsAnswer - область ответа контекстного обсуждения
+   > ecsMessage - поле ответа
+     - ecsMessageEdit - поле ответа в режиме редактирования
+
+классы, названия которых используются для js, но не нужны для лишнего css :
+   ecsChatMember - участник в новых участниках
+   ecsChatMore - ссылка "Показать еще"
+   ecsChatTextLink - ссылки
+
+   //////////////////////////////////////////////////////////// */
+
+/* ------------ ECS ------- .1 общие стили - каркасы */
+/* классы для истории - вставить при необходимости */
+/* перечисления с общими характеристиками */
+.ecsThemes, .ecsMain, .ecsContext {font-size: var(--INTERFACE_FONT_SIZE); color: var(--INTERFACE_COLOR); position: absolute; line-height: 1.2; z-index: 0;}
+.ecsHeader > div, .framePress, .ecsButton, .cloud .ecsEdit, .ecsSearch, .ecsSearch .ecsEdit {height: var(--INTERFACE_PRESS_HEIGHT);}
+.ecsHeader .pressImg, .pressImg.spriteECS {background-size: auto;}
+.ecsHeader .disabled.pressImg {opacity: 0.5; z-index: -1;}
+.ecsHeaderIco {display: flex; flex: 0 0 auto;}
+.ecs-chat:not(.ecs-chat-hide) .ecsHeaderIco {display: none;}
+
+.ecsChatDate, .ecsChatBox, .ecsChatName {-moz-user-select: text; -webkit-user-select: text;}
+.ecsChatService {position: absolute; width: 100%; bottom: 0.15em; padding: 0;}
+
+.ecsChatItemService .ecsChatText, .ecsChatTyping, .ecsChatTextDeleted {color: var(--INTERFACE_BG_4); font-style: italic;}
+/* каркас */
+.ecsContext {border-width: 0 8px; border-style: solid; border-color: transparent;}
+.ecsContext .ecsHeader {border-bottom: 1px solid var(--INTERFACE_BG_2); position: absolute; top: 0; right: 0; left: 0; z-index: 2;}
+.ecsAvatar {display: inline-flex; justify-content: flex-end; align-items: flex-end; background-repeat: no-repeat; background-position: center top; background-size: cover; border-radius: 50%; position: relative; width: 1em; height: 1em; z-index: 0;}
+.ecsAvatar:after {content: ''; border-radius: 50%; background: var(--INTERFACE_COLOR); position: absolute; top: 1px; right: 1px; bottom: 1px; left: 1px; opacity: 0.1; z-index: -1;}
+/* стили для состояния пользователя на аватаре, cloudCard, captionbar */
+.ecsStatus:before {content: ''; display: inline-block; flex: 0 0 auto; background-color: #64C846; background-clip: padding-box; border: 2px solid var(--INTERFACE_BACKGROUND_COLOR); border-radius: 50%; width: 0.2em; height: 0.2em; min-width: 6px; min-height: 6px;}
+.ecsIncoming .ecsStatus:before {border-color: #4D4D4D;}
+.ecsStatusDnd:before {background-color: var(--INTERFACE_COLOR_RED);}
+.ecsStatusAway:before {background: #FADB1F;}
+.ecsStatusBlocked:before {background: var(--INTERFACE_BG_5);}
+.captionbar .ecsStatus:before, #DnDBtn:before {border-width: 1px; width: 7px; height: 7px;}
+.captionbar .ecsStatus:not(.ecsStatusDnd):before {content: none;}
+.captionbar .ecsStatus:before {margin: 0 4px;}
+#DnDBtn {margin-right: -0.3em; margin-left: -0.3em;}
+#DnDBtn:before {width: 0.6em; height: 0.6em; margin: 0 0.6em;}
+#DnDBtn:after {content: ''; display: inline-block; flex: 0 0 auto; border-width: 0.225em 0.225em 0; border-style: solid; border-color: var(--INTERFACE_COLOR) transparent; margin: 0 0.3em;}
+/*  */
+.ecsTopline {background-color: var(--CHAT_HEADER_BACKGROUND_COLOR); color: var(--CHAT_HEADER_TEXT_COLOR); fill: var(--CHAT_HEADER_TEXT_COLOR); position: absolute; cursor: move;}
+.ecs-chat-hide .ecsTopline {cursor: pointer;}
+.ecsTopline * {fill: inherit;}
+.ecsTopline .toplineBox {margin: 0 0.3em;}
+.ecsTopline .toplineBox:after {color: inherit;}
+.ecsTopline .ico:not(.disabled) {opacity: 0.9;}
+.ecsTopline .ico:not(.ecsHeaderIco) {cursor: default;}
+/* кнопка "настройки" */
+.ecsSettings {height: 1.2em; margin: 0.6em 0 0.3em; overflow: hidden;}
+.ecsSettings * {margin: 0 0.225em;}
+/* кнопки "камера - камера с плюсом", "колокольчики" */
+.ecs-base.ecsOnAir a[data-cmd="startVideo"],
+.ecs-base:not(.ecsOnAir) a[data-cmd="addVideo"] {display: none;}
+.ecsNotifyHigh use:nth-child(2), .ecsNotifyHigh use:nth-child(3),
+.ecsNotifyMedium use:first-child, .ecsNotifyMedium use:nth-child(3),
+.ecsNotifyOff use:first-child, .ecsNotifyOff use:nth-child(2) {display: none;}
+/* подсветка фона при поиске */
+.ecsSearchHighLight{background-color: #ffad03;}
+.ecsSearchCurrentHighLight{background-color: #88ff00;}
+/* /end ------- ECS ------- .1 общие стили - каркасы */
+/* ------------ ECS ------- .2 поля ввода  */
+/* поле ввода */
+.ecsEdit {display: flex; align-items: center; color: var(--INTERFACE_COLOR); fill: var(--INTERFACE_COLOR); position: relative; width: 100%; height: 1.8em; z-index: 0;}
+.ecsEdit > * {margin: 0 0.15em;}
+.ecsEdit i {fill: inherit;}
+.ecsEditField {position: relative; width: 100%;}
+/* состояния подчеркивания и фокуса */
+.ecsEditLine:before {content: ''; border-top: 1px solid var(--INTERFACE_BG_2); position: absolute; top: 100%; right: 0; left: 0; margin-top: -2px;}
+.focus.ecsEdit:before {border-top-width: 2px; border-color: var(--ACTIVITY_COLOR_BACKGROUND);}
+.cardBig .ecsEditLine:before {border-top-width: 1px;}
+.cardBig .ecsEditLine:not(.select):before {content: none;}
+/* окно вставки изображения */
+.cloudPastedImage .ecsEdit:after {content: '.png'; position: relative;}
+/* отсутствие подчеркивания и фокуса */
+.ecsContext .ecsHeader .ecsEdit:before {content: none;}
+/* открывашка для заголовка */
+.ecsTopline .ecsSearch {display: none; flex: 0 1 auto; width: 265px; min-width: 8em;}
+.ecsSearchShow {display: none;}
+.ecsSearchShow + .ecsSearch  {display: inline-block;}
+/* области ответов */
+.ecsAnswer .ecsEdit {width: auto; margin-right: var(--ECS_PADDING); margin-left: var(--ECS_PADDING);}
+.ecsAnswer .ecsMessage {box-sizing: border-box;}
+.ecsAnswer .editArea {padding-right: 0.6em;}
+html[dir=rtl] .ecsAnswer .editArea {padding-right: 0; padding-left: 0.6em;}
+.ecsAnswer .ico {opacity: 0.5;}
+.ecsAnswer .ico:HOVER {opacity: 0.75;}
+/* цвет подсказки ввода */
+body:not(.ecs-chat) .ecsMessage textarea::-moz-placeholder {color: var(--INTERFACE_COLOR);}
+body:not(.ecs-chat) .ecsMessage textarea::-webkit-input-placeholder {color: var(--INTERFACE_BG_4);}
+body:not(.ecs-chat) .ecsMessage textarea:-ms-input-placeholder, .ecsEditField .editInput:-ms-input-placeholder {color: #A1A1A1;}
+.ecs-chat .ecsMessage textarea::-moz-placeholder {color: var(--INTERFACE_COLOR); opacity: 0.4;}
+.ecs-chat .ecsMessage textarea::-webkit-input-placeholder {color: var(--INTERFACE_COLOR); opacity: 0.39;}
+.ecs-chat .ecsMessage textarea:-ms-input-placeholder, .ecsEditField .editInput:-ms-input-placeholder {color: var(--INTERFACE_COLOR); opacity: 0.41;}
+/* конструкция для троеточия только для placeholder */
+.ecsEditField[placeholder]:before {content: attr(placeholder); color: var(--INTERFACE_BG_4); position: absolute; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.ecsEditField .editInput {background: var(--INTERFACE_BACKGROUND_COLOR); position: relative; height: auto;}
+.ecsEditField .editInput:placeholder-shown {background: transparent;}
+.ecsEditField .editInput::-moz-placeholder {color: transparent;}
+.ecsEditField .editInput::-webkit-input-placeholder {color: transparent;}
+/* кнопки ответить/редактировать/не применять поля ввода */
+.ecsMessage i.disabled {position: relative; opacity: 0.4; z-index: -1;}
+.ecsMessage i.disabled, .ecsMessage .iEcsEditCancel {display: none;}
+.ecsMessageEdit i.disabled, .ecsMessageEdit .iEcsEditCancel {display: block;}
+/* /end ------- ECS ------- .2 поля ввода */
+/* ------------ ECS ------- .3 списки тем / участников */
+.ecsList {overflow-y: auto;}
+.ecsListItem  {width: 100%; margin: 0.3em -0.3em; padding: 0.3em; box-sizing: border-box;}
+.ecsListItem:first-child {margin-top: 0;}
+.ecsListItem:before {content: ''; display: inline-block; width: 0.3em;}
+.ecsListItemBox {padding-right: 0.6em; padding-left: 0.6em; white-space: pre; overflow: hidden; text-overflow: ellipsis; line-height: 1.2em;}
+.ecsListItemHint {display: block; opacity: 0.6;}
+.select.ecsListItem {background-color: var(--ACTIVITY_COLOR_BACKGROUND); color: var(--ACTIVITY_COLOR_TEXT);}
+.ecsListItem .iHoverDark {background: var(--INTERFACE_BACKGROUND_COLOR_75); border-radius: 50%; padding: 0.3em;}
+/*  */
+.ecsMembers {overflow-y: auto;}
+.ecsMembersItem {padding: 0.3em 0.15em;}
+.ecsMembersItem > * {margin: 0 0.15em;}
+.ecsThemes .ecsMembersItem:not(:HOVER) i {display: none;}
+.ecsThemes .ecsMembersItem:HOVER {background-color: var(--INTERFACE_BG_2); cursor: pointer;}
+.ecsThemes .ecsMembersItem .ecsListItemBox {font-size: 0.8em;}
+
+/* группа списка участников (приглашение в видеозвонок) */
+.ecsMembersGroup .ecsMembersItem:first-child {font-weight: bold;}
+.ecsMembersGroup .ecsMembersItem:only-child {display: none;}
+.ecsMembersGroup .ecsMembersItem + .ecsMembersItem:before {content: ''; display: block; flex: 0 0 auto; width: 24px;}
+/* счетчик */
+.ecsMembersCount {border-top: 1px solid var(--INTERFACE_BG_4); padding-top: 4px;}
+.ecsMembersCount span {color: var(--INTERFACE_COLOR);}
+/* /end ------- ECS ------- .3 списки тем / участников */
+/* ------------ ECS ------- .4 болталка */
+.ecsMain .ecsChat, .ecsMain .ecsAnswer {padding: 0 0 0 50px;}
+html[dir=rtl] .ecsMain .ecsChat, html[dir=rtl] .ecsMain .ecsAnswer {padding: 0 50px 0 0;}
+.ecsChat, .ecsAnswer {position: relative; width: 100%; overflow-y: auto; box-sizing: border-box;}
+.ecsContext .ecsChat {margin-top: 32px;}
+.ecsChatBlock {position: relative; width: 100%; padding-bottom: 26px; z-index: 0;}
+/* 108px состоят из:
+ * - ECS.UI.PanelBase.splitterOffsetTop (100px)
+ * - ECS.UI.Splitter.size (8px) */
+.ecsAnswer {border-width: 0.15em 0 0.9em 0; border-style: solid; border-color: transparent; max-height: calc(100% - 108px); padding: 0 0 0 1.35em; overflow: inherit;}
+html[dir=rtl] .ecsAnswer {padding: 0 1.35em 0 0;}
+.ecsAnswerInfo {width: 100%; margin: 0 -0.3em;}
+.ecsAnswerInfo:after {content: ''; flex: 0 0 auto; width: 4px;}
+/* отключение отображения аватара */
+.ecs-chat-avatar-hide .ecsAvatar {display: none;}
+/* надпись "Печ.videoChat .videoUserатает..." */
+.ecsChatTyping div {margin: 0 0.6em;}
+/* дата */
+.ecsChatDate {color: var(--INTERFACE_BG_4); position: sticky; top: 0.2em; width: 100%; margin: 0.9em 0 0; z-index: 1;}
+.ecsChatDate div {background: var(--INTERFACE_BACKGROUND_COLOR); border-radius: 2em; font-size: 0.8em; font-weight: bold; padding: 0.3em 0.6em;}
+.ecsChatTyping + .ecsChatDate {margin-top: 0;}
+
+/* блок сообщения */
+.ecsChatItem {position: relative; margin-top: 0.3em;}
+/* кто-кому */
+.ecsContext .ecsChatWho {min-height: 40px; margin-right: 4px; margin-left: 4px;}
+.select.ecsChatName {color: #f38000;}
+.ecsChatName {font-weight: bold; opacity: 0.5;}
+.ecsChatWhom {color: var(--INTERFACE_BG_4);}
+.ecsChatWhom:before {content: ' \2192\00A0';}
+html[dir=rtl] .ecsChatWhom:before {content: ' \2190\00A0';}
+.ecsOwner .ecsChatWhom:before {content: attr(data-title) ' \2192\00A0';}
+html[dir=rtl] .ecsOwner .ecsChatWhom:before {content: attr(data-title) ' \2190\00A0';}
+.ecsOwner .ecsChatName.bold {color: var(--INTERFACE_ACCENT_COLOR);}
+/* Установка контента для стилей описания имени пользователя. Иначе имя пользователя грузится
+ чуть дольше, чем текст сообщений и получаем баги скроллирования */
+.select.ecsChatName {color: #f38000;}
+.ecsChatName:empty:before {content: '\00a0';}
+
+/* ecsChat + ecsChatBlock - чат
+     - ecsChatF2F - доп.класс для обсуждения один-на-один */
+.ecsChatF2F [data-cmd="reply"] {display: none;}
+
+/* содержимое */
+.ecs-chat .ecsChatItem .ecsChatInfo .ico, .ecs-chat .ecsChatItem.ecsOwner .ecsChatWhoShow, .ecs-chat .ecsChatItem.ecsChatItemJoined .ecsChatWhoShow, .ecs-chat .ecsChatItem .ecsChatWhoShow .iHoverDark , .ecs-chat .ecsChatItem.ecsOwner .ecsAvatar {display: none;}
+
+.ecsChatBox {flex-direction: column; align-items: flex-end; max-width: 80vw; padding: 0 0.45em 0.45em 0.45em; transition: .5s; -webkit-transition: .5s; -moz-transition: .5s;}
+
+.ecsChatItem {display: flex;}
+.ecsChatItem.ecsOwner {justify-content: flex-end;}
+
+.ecsMessageBlink .ecsChatBox {background-color: var(--INTERFACE_BG_2);}
+.ecsMessageEdit .ecsChatBox {outline: 1px solid var(--INTERFACE_ACCENT_COLOR);}
+.ecsMessageSelect .ecsChatBox {outline: 1px solid var(--INTERFACE_BG_3);}
+/* колонка с тех.информацией */
+.ecsChatInfo {flex-direction: row-reverse; flex: 0 0 auto; align-items: center; align-self: baseline;}
+body:not(.ecs-chat) .ecsChatInfo {color: var(--INTERFACE_BG_4); min-width: 60px;}
+body:not(.ecs-chat) .ecsChatInfo .fs-8 {margin: 0 0.3em;}
+.ecs-chat .ecsChatInfo {opacity: 0.5;}
+.ecs-chat .ecsChatItem.ecsOwner .ecsChatInfo {align-self: flex-end;}
+/* контент */
+.ecsChatText, .ecsChatText span {max-height: 1000000px;}
+.ecsChatText {background: var(--INTERFACE_TEXT_BACKGROUND_COLOR); border-radius: 0.6em; position: relative; margin-bottom: 0.15em; padding: 0.45em 0.6em 0.6em 0.6em; line-height: 1.5em; box-sizing: border-box; word-wrap: break-word; overflow: hidden; cursor: text;}
+.ecs-chat .ecsChatItem.ecsOwner .ecsChatText {background: var(--INTERFACE_TEXT_OWNER_BACKGROUND_COLOR);}
+
+.ecsChatText span[data-depth] {display: flex; align-items: stretch;}
+.ecsChatText span[data-depth] i {order: -1; border-left: 2px solid var(--INTERFACE_LINK_COLOR); margin: 0 3px;}
+.ecsChatText span[data-depth] span {flex: 1 1; min-height: 1.2em; white-space: pre-wrap; word-wrap: break-word; word-break: break-word;}
+
+.ecsChatText span[data-depth]:not([data-depth="0"]) {font-style: italic; color: var(--INTERFACE_COLOR); max-width: 100%; margin: 8px 0x;}
+.ecsChatText span[data-depth]:not([data-depth="0"]):first-child {margin-top: 0;}
+.ecsChatText span[data-depth]:not([data-depth="0"]) + span[data-depth]:not([data-depth="0"]) {margin-top: -8px;}
+
+.ecsChatText span[data-depth]:not([data-depth="0"]):before {content: ''; margin: 0 2px;}
+
+.ecsChatFile {display: inline-flex; align-self: flex-start; max-width: 100%; margin-top: 0.3em; line-height: 1.2em; cursor: pointer;}
+.ecsChatFile span {pointer-events: none;}
+.ecsChatFile:first-child {margin-top: 0;}
+.ecsChatBR + .ecsChatFile {margin-top: 0.6em;}
+.escHasNotLoadedAttachment + .ecsChatText .ecsChatFile {color: var(--INTERFACE_BG_4); cursor: default;}
+.ecsChatFileTitle {display: block; white-space: pre-wrap; word-wrap: break-word; word-break: break-word;}
+.ecsChatFileSize {font-size: 0.8em;}
+.ecsChatFileSize {opacity: 0.5;}
+    /* ecsChatActions */
+.ecsChatActions {word-spacing: 1em;}
+.ecsChatAction {word-spacing: normal;}
+/* присоединенное сообщение без аватара */
+.ecsChatItemJoined.ecsChatItem {margin-top: 0;}
+.ecsChatItemJoined .ecsChatWhoShow, .ecsChatItemJoined .ecsAvatar {display: none;}
+/* /end ------- ECS ------- .4 болталка */
+/* ------------ ECS ------- .5 пути к типам файлов, приложенных к сообщению ECS и прочие иконки для файлов */
+.ecsChatFile .ico {display: inline-block; background-color: var(--INTERFACE_BACKGROUND_COLOR); border: 8px solid transparent; border-width: 7px 9px 9px 7px; border-radius: 0.3em; width: 1.2em; height: 1.2em; vertical-align: middle;}
+.ecsChatFile .ico {border-width: 0.5em;}
+.ecsChatFile .ico svg {width: inherit !important; height: inherit !important; margin: -1px;}
+.ecsChatFile div span {margin: 0 4px; vertical-align: middle;}
+
+.ecsSvgTheme {fill: var(--INTERFACE_SVG);}
+.ecsSvgThemeGreen {fill: var(--INTERFACE_SVG_GREEN);}
+.ecsSvgThemeGreenExcel {fill: var(--INTERFACE_SVG_GREEN_EXCEL);}
+.ecsSvgThemeRedPdf {fill: var(--INTERFACE_SVG_RED_PDF);}
+.ecsSvgThemeGreenODC {fill: var(--INTERFACE_SVG_GREEN_ODC);}
+.ecsSvgThemeBlueODF {fill: var(--INTERFACE_SVG_BLUE_ODF);}
+
+/* /end ------- ECS ------- .5 пути к типам файлов, приложенных к сообщению ECS и прочие иконки для файлов */
+/* /end /////// ECS ------- //////////////////////// */
+
+/* //////////// ecsCloud ------- Облака для ECS ------- ///////
+      .1 визитка - logout & ecs
+      .2 редактирование аватара
+
+   !!!!!!! Внимание: - (ecs.gss, выше) #DnDBtn:before - не забывать про статус юзера
+
+   cloudPastedImage - вставка изображения
+
+   cloudCard - визитка - logout & ecs
+   - cardBig - logout
+   - cardSmall - ecs
+   cardBox - контент
+   > ecsAvatar - аватар (общий класс)
+   > cardInfo - текст
+   cardLine - линия выхода (logout)
+   logoutExitIco - иконка ссылки "завершить работу"
+
+   avaEditRightButton
+   avaEdit
+   avaEditArea - область редактирования
+   - avaEditAreaNoResize -
+   avaEditRound - круг
+   avaEditMove - перемещение
+   avaEditSize - область ресайза
+   - avaEditSizeTL - top-left
+   - avaEditSizeTC - top-center
+   - avaEditSizeTR - top-right
+   - avaEditSizeRC - right-center
+   - avaEditSizeBR - bottom-right
+   - avaEditSizeBC - bottom-center
+   - avaEditSizeBL - bottom-left
+   - avaEditSizeLC - left-center
+
+   //////////////////////////////////////////////////////////// */
+/* ------------ ecsCloud ------- .1 визитка - logout & ecs */
+.cloudCard {min-width: 350px; overflow: hidden;}
+.cardBig {max-width: 400px;}
+.cardLine {fill: var(--INTERFACE_COLOR); border-top: 1px solid var(--INTERFACE_BG_2); position: relative; padding: 2px;}
+.cardBig .cardLine {background: var(--INTERFACE_BG_1); padding: 0.8em 1.2em;}
+.cardBox .ecsAvatar {margin: 6px;}
+.cardInfo {padding: 6px;}
+.cloudCard #LogoutClose {margin: -6px;}
+/*.cardBig span {position: relative; margin-right: 0.3em; margin-left: 0.3em;}*/
+/* смена ссылки на поле ввода */
+.cardBig .ecsEdit:not(.select) .ecsEditField {width: 0; overflow: hidden;}
+.cardBig .select.ecsEdit a {display: none;}
+/*  */
+.cardInfo div[id] {position: relative;}
+.cardInfo .i16 + * {margin: 0 0.3em;}
+.cardInfo *[data-content]:empty:after {content: attr(data-content);}
+.cardSmall .cardInfo *[data-content]:empty:after {content: attr(data-content); color: var(--INTERFACE_BG_4);}
+.cardBig .cardInfo *[data-content]:empty:after {color: var(--INTERFACE_LINK_COLOR); text-decoration: underline;}
+.cardBig .cardInfo a:not(:empty) {color: var(--INTERFACE_COLOR);}
+/* /end ------- ecsCloud ------- .1 визитка - logout & ecs */
+/* ------------ ecsCloud ------- .2 редактирование аватара */
+.avaEdit {position: relative; width: 250px; height: 250px; overflow: hidden;}
+.avaEditArea {position: absolute; padding: 1px;}
+.avaEditAreaNoResize .avaEditRound {border-width: 0;}
+.avaEditAreaNoResize i {display: none;}
+.avaEditRound {border: 1px dashed var(--INTERFACE_BACKGROUND_COLOR); border-image: url({{base}}e1csys/mngsrv/_focus_ecs.png?sysver={{version}}) 1 1 1 1 repeat repeat; overflow: hidden; box-shadow: 0 0 0 500px var(--INTERFACE_BG_5);}
+.avaEditRound div {border-radius: 50%; width: 100%; height: 100%; box-shadow: 0 0 0 47px var(--INTERFACE_BG_5);}
+.avaEditRightButton * {width: 100%;}
+.avaEditRightButton div + div {margin-top: 8px;}
+/* ресайз */
+.avaEditMove {position: absolute; top: 4px; right: 4px; bottom: 4px; left: 4px; cursor: move;}
+.avaEditSize {border: 4px solid transparent; font-size: 0; position: absolute;}
+.avaEditSize:before {content: ''; display: inline-block; background: var(--INTERFACE_BACKGROUND_COLOR); width: 5px; height: 5px;}
+.avaEditSizeTL, .avaEditSizeTC, .avaEditSizeTR {top: -6px;}
+.avaEditSizeTR, .avaEditSizeRC, .avaEditSizeBR {right: -6px;}
+.avaEditSizeBR, .avaEditSizeBC, .avaEditSizeBL {bottom: -6px;}
+.avaEditSizeTL, .avaEditSizeBL, .avaEditSizeLC {left: -6px;}
+.avaEditSizeTC, .avaEditSizeBC {left: 50%; margin-left: -6px;}
+.avaEditSizeRC, .avaEditSizeLC {top: 50%; margin-top: -6px;}
+.avaEditSizeTL, .avaEditSizeBR {cursor: se-resize;}
+.avaEditSizeTR, .avaEditSizeBL {cursor: sw-resize;}
+.avaEditSizeTC, .avaEditSizeBC {cursor: n-resize;}
+.avaEditSizeRC, .avaEditSizeLC {cursor: w-resize;}
+/* /end ------- ecsCloud ------- .2 редактирование аватара */
+/* /end /////// ecsCloud ------- //////////////////////// */
+
+/* //////////// ecsVideo ------- Групповые видеозвонки ------- ///////
+      .1 общие стили
+
+   ecsIncoming - окно входящего звонка
+   screenSharing - демонстрация экрана
+   cloudMinimize - минимайз окна видеозвонка
+
+   ecsVideo - окно видеозвонка
+   ecsVideoText - служебный текст посреди окна вместо звонка
+   ecsVideoPress - главные кнопки
+
+   ecsVideoChat - оболочка видео чата (мозаика)
+   ecsVideoUsers (ecsVideoList + videoMine) - контейнер правой части с участниками
+   ecsVideoList - оболочка списка участников:
+   videoList - список участников
+   videoItem - контейнер для юзера в списке (используется для группировки в js списка в правильном порядке):
+   - videoItemOnline - группа с видео
+   - videoItemNoVideo - группа с нет видео
+   - videoItemPending - группа соединение
+   - videoItemRejected - группа сбросили
+
+   videoMine - мое видео
+   - videoMineNone - отсутствие моего видео
+
+   videoUser - участник:
+   - videoUserOff - состояние с аватаром, когда нет еще видео
+   - videoUserSolo - один участник с одним видео - отменяет курсоры
+   videoUserName - имя участника
+   videoUserStatus - статус + крестик:
+
+   - videoStatusPending .spriteECS - соединение
+   - videoStatusNoVideo .spriteECS - нет камеры
+   - videoStatusRejected .spriteECS - сброшенный звонок
+   - videoStatusDiscarded .spriteECS - сброшенный, потому что нет оборудования никакого
+   - videoStatusQualityAverage .spriteECS - желтое соединение
+   - videoStatusQualityBad .spriteECS - красное соединение
+   - videoStatusQualityGood .spriteECS - (пустое) зеленое соединение
+   - videoStatusScreenSharing .spriteECS - демонстарция экрана
+
+   mixer - стили для микрофона
+
+   //////////////////////////////////////////////////////////// */
+/* ------------ ecsVideo ------- .1 общие стили */
+/*  */
+.ecsVideoChat, .ecsVideoUsers, .ecsVideoList, .videoList, .videoItem {position: relative;}
+.ecsVideoPress, .ecsVideo video, .videoUser, .videoUserName, .videoUserStatus, .videoMine, .videoMine .videoUser {position: absolute;}
+.videoUser, .videoMine, .videoItem:not(:empty) {width: 9em; height: 6.75em;}
+.videoItem:empty {width: 0;}
+.ecsVideo video {width: 100%; height: 100%;}
+
+/* окно видеозвонка */
+.ecsVideo {color: #FFF; background: #404040; background-size: cover; position: absolute; width:100%; top: 3.9em; bottom: 0;}
+/* служебный текст посреди окна вместо звонка */
+.ecsVideoText:before {content: attr(data-content); font-size: 1.3em; text-align: center;}
+.ecsVideoText div:not(.ecsVideoPress), .ecsVideoText .ecsVideoPress .ico:not(:first-child) {display: none;}
+/* главные кнопки */
+.ecsVideoPress {border-width: 0.3em 0 1.8em; border-style: solid; border-color: transparent; width: 100%; max-height: 3em; bottom: 0; overflow: hidden; z-index: 5; pointer-events: none;}
+.ecsVideoPress span {margin: 0 0.3em; pointer-events: auto;}
+/* оболочка списка участников */
+.ecsVideoUsers {opacity: 1; z-index: 2;}
+.ecsVideoList {background-color: #333; overflow: hidden; max-height: 100%;}
+
+/* один участник */
+.videoUser {border: 1px solid #333; margin: 0 100%; text-align: center; box-sizing: border-box;}
+.videoUserStatus {margin: 0.3em;}
+.ecsVideoList .videoUserName {font-size: 0.8em;}
+.ecsVideoList .videoUserStatus {top: 0; right: 0; left: 0;}
+
+/* сложность появления имени одного участника */
+.videoUserName, .videoChat .videoStatusScreenSharing:only-child .videoUserName {opacity: 0;}
+.videoUserOff .videoUserName, .videoUser:HOVER .videoUserName,
+.videoChat .videoStatusScreenSharing:only-child .videoUserName:HOVER {opacity: 1;}
+
+/* состояние с аватаром, когда нет еще видео */
+.videoUserOff video, .videoUser:not(.videoUserOff) .ecsAvatar {display: none;}
+
+/* мое видео */
+.videoMine {bottom: 0; margin: 0 1.2em 6em; z-index: 3;}
+.videoMineNone {display: none;}
+.videoMine:not(.videoMineNone) + .ecsVideoList {max-height: calc(100% - 6.75em);}
+.videoMine .videoUser {border: 0 none; margin: auto;}
+.videoMine video {right: 0; transform: scale(-1, 1);}
+
+/* список участников */
+.videoUser.focus:after {content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; box-shadow: 0 0 0 1px inset var(--INTERFACE_COLOR_ORANGE); pointer-events: none;}
+.videoItem .videoUser {margin: 0;}/* а почему тут нет border-color: #000; */
+.videoItem video {top: 0; left: 0;}
+.videoItem .videoUserName {bottom: 0;}
+.videoUser:not(.videoStatusPending):not(.videoStatusRejected):not(.videoStatusDiscarded) .videoRemoveConferee {display: none;}
+
+/* плюшки на видео в списке */
+.videoStatusRejected, .videoStatusDiscarded {background: #462826;}
+
+/* главное окно (мозаика) */
+.videoChat {font-size: var(--INTERFACE_FONT_SIZE);background: #404040; border-radius: 0.5em; border-width: 3.6em 0.5em 8.4em; border-style: solid; border-color: transparent; position: relative;  min-width: 100%; min-height: 100%; overflow: hidden; box-sizing: border-box;}
+.videoChat .videoUser {display: flex;}
+.videoUser {background-color: #727272; background-clip: content-box; border-radius: 0.8em; overflow: hidden;}
+.videoChat .videoUser {border: 2px solid transparent;}
+.videoChat video, .videoChat canvas {align-self: center; max-width: 100%; max-height: 100%;}
+.videoChat .videoUserName {background: rgba(0,0,0,0.3); border-radius: 0 0.6em 0 0; bottom: 0; padding: 0.6em; opacity: 1;}
+html[dir=rtl] .ecs-chat .videoChat .videoUserName {border-radius: 0.6em 0 0 0;}
+
+.screenSharing .videoChat video {align-self: flex-start; position: relative; max-width: 9em; max-height: 6.75em;}
+.screenSharing .videoChat video:not(:HOVER) {opacity: 0.5;}
+.screenSharing .ecsVideoUsers:not(:HOVER) .videoMine {opacity: 0.5;}
+
+/* окно входящего звонка */
+.ecsIncoming.cloudBox {background-color: #4D4D4D; color: #FFF; border-radius: 0.5em; position: absolute; height: 4.5em; top: 4.5em; right: 0.9em; left: 0.9em;}
+.ecsIncoming.cloudBox {padding: 0 0.75em; box-shadow: 0px 8px 30px var(--INTERFACE_INCOMING_SHADOW);}
+.ecsIncomingBox > div {display: flex; align-items: center;}
+.ecsIncomingBox {display: flex; align-items: center;}
+.ecsIncoming .ecsAvatar, .ecsInviter  {margin: 0 0.45em;}
+.ecsIncoming .ecsAvatar {font-size: inherit; width: 2.7em; height: 2.7em;}
+.ecsIncoming .ecsVideoPress {border: 0 none; position: relative;}
+.ecsIncoming .pressIco {margin: 0 0.3em;}
+.ecsIncoming .fs-8 {line-height: 1.8em; opacity: 0.65;}
+
+/* отображение доступности элементов для Minimize */
+.cloudMinimize .ecsVideoPress, .cloudMinimize .ecsVideoUsers {display: none;}
+.cloudMinimize .ecsVideo:not(.ecsVideoText):HOVER .ecsVideoPress {display: flex;}
+.cloudMinimize [data-cmd~=addUser],
+.cloudMinimize [data-cmd~=openConv],
+.cloudMinimize [data-cmd~=desktopSharing] {display: none;}
+.cloudMinimize .ecsVideoChatBox {width: 100% !important; height: 100% !important;}
+.cloudMinimize .videoChat .videoUser {border-width: 0; cursor: default !important;}
+.cloudMinimize .videoUser:first-child {z-index: 1;}
+
+/* курсоры */
+.videoList .videoUser:not(.videoUserOff), .videoChat .videoUser:not(.videoUserSolo) {cursor: url(../images/_confereeZoomIn.cur), default;}
+.videoChat .videoUser:only-child:not(.videoUserSolo) {cursor: url(../images/_confereeZoomOut.cur), default;}
+.screenSharing .videoChat .videoUser {cursor: not-allowed !important;}
+/* анимация */
+.ecsVideoUsers, .ecsVideoPress {transition: width 0.5s, bottom 0.5s, opacity 0.5s; -webkit-transition: width 0.5s, bottom 0.5s, opacity 0.5s; -moz-transition: width 0.5s, bottom 0.5s, opacity 0.5s;}
+
+.videoUser, .videoItem, .videoItem span {transition: width 0.5s, height 0.5s, top 0.5s, margin 0.5s; -webkit-transition: width 0.5s, height 0.5s, top 0.5s, margin 0.5s; -moz-transition: width 0.5s, height 0.5s, top 0.5s, margin 0.5s;}
+
+.cloudMinimize .videoUser {transition: all 0s ease 0s; -webkit-transition: all 0s ease 0s; -moz-transition: all 0s ease 0s;}
+
+.videoUserName {transition: opacity 0.5s; -webkit-transition: opacity 0.5s; -moz-transition: opacity 0.5s; transition-delay: 0.2s; -moz-transition-delay: 0.2s; -webkit-transition-delay: 0.2s;}
+
+.mixer {background: radial-gradient(circle, rgba(100,100,100,0.25) 35%, var(--INTERFACE_BACKGROUND_COLOR) 30%); background-size: 6% auto; position: relative; height: 16px; display: block; overflow: hidden;}
+
+.mixer div {border-radius: 16px; position: absolute; height: 100%; z-index: -1;}
+
+/* /end ------- ecsVideo ------- .1 общие стили */
+/* /end /////// ecsVideo ------- //////////////////////// */
+
+/* //////////// ecsUnread ------- Непрочитанные сообщения (captionbar, opened, topline) ------- ///////
+      .1 общие стили
+
+   ecsCameraFill - индикация видеозвонка/трансляции экрана в captionbar
+   ecsUnread - общий класс для отметки непрочитанных сообщений ECS
+   ecsDingDong - колоколящий колокольчик
+   ecsNone - отсутствие соединения с сервером в панели открытых
+   //////////////////////////////////////////////////////////// */
+/* ------------ ecsUnread ------- .1 общие стили */
+/* замена иконок колокольчика и камеры/монитора */
+a.ecsUnread svg.sNotify, a.ecsDingDong svg.sNotify,
+a:not(.ecsUnread) svg.sNotifyFill, a.ecsDingDong svg.sNotifyFill {display: none;}
+.ecsScreenSharing .sCameraFill, .ecsCameraFill:not(.ecsScreenSharing) .sMonitor {display: none;}
+/* общее оформление для красных кружочков в captionbar (кол-во непрочитанных, не беспокоить, видеозвонок) */
+.ecsUnread .flexCenter, .ecsCameraFill:before, .cardDnD:before, .cardDnDOn:before {background-color: red; background-clip: content-box; padding: 1px; box-shadow: 0 0 0 1px rgba(255,255,255,0.75) inset; box-sizing: border-box;}
+/* цифры непрочитанных */
+.ecsUnread .flexCenter {font-weight: bold; color: var(--INTERFACE_BACKGROUND_COLOR); border-radius: 50%; position: absolute; width: 16px; height: 16px; top: -2px;}
+.ecsUnread .flexCenter:before {content: attr(data-title);}
+html[dir=ltr] .captionbar .ecsUnread .flexCenter {right: -2px;}
+html[dir=ltr] .openedItem .ecsUnread .flexCenter {right: -8px;}
+html[dir=rtl] .captionbar .ecsUnread .flexCenter {left: -2px;}
+html[dir=rtl] .openedItem .ecsUnread .flexCenter {left: -8px;}
+/*  */
+.captionbar .ecsUnread:before, .ecsCameraFill:before, .ecsRoundRed:before {content: ''; border-radius: 50%; position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+.ecsUnread:before {background: var(--INTERFACE_COLOR_GREEN); box-shadow: 0 0 0 1px rgba(0,255,119,0.5) inset;}
+.ecsDingDong:before {background-image: url({{base}}e1cib/convertPicture?sysver={{version}}&url=e1csys%2Fmngsrv%2F_notifyUnreadDingDong.zip&scale=100&interfaceVar=16); background-position: center;}
+/* использование парных svg в бабликах обсуждений */
+.ecsRoundRed:before {background: var(--INTERFACE_COLOR_RED); box-shadow: 0 0 0 1px rgba(255,255,255,0.5) inset;}
+#ecsPanelButton:not(.ecsNone) use + use, .topline .ico:not(.ecsUnread) use + use {display: none;}
+.ecsUnread {fill: var(--INTERFACE_COLOR_GREEN) !important;}
+.ecsNone {fill: var(--INTERFACE_BG_4);}
+/* /end ------- ecsUnread ------- .1 общие стили */
+/* /end /////// ecsUnread ------- //////////////////////// */

@@ -1,0 +1,134 @@
+.flexInlineCenter {display: inline-flex; justify-content: center; align-items: center;}
+.flexCenter {display: flex; justify-content: center; align-items: center;}
+.flex {display: flex;}
+.flex-inline {display: inline-flex;}
+.flex-row-reverse {display: flex; flex-direction: row-reverse;}
+.flex-column {display: flex; flex-direction: column;}
+.flex-wrap {flex-wrap: wrap;}
+.flex-ai-start {align-items: flex-start;}
+.flex-ai-center {align-items: center;}
+.flex-ai-stretch {align-items: stretch;}
+.flex-ai-end {align-items: flex-end;}
+.flex-as-center {align-self: center;}
+.flex-jc-center {justify-content: center;}
+.flex-jc-between {justify-content: space-between;}
+.flex-jc-end {justify-content: flex-end;}
+.flex-0-0-auto {flex: 0 0 auto;}
+.flex-0-0-100 {flex: 0 0 100%;}
+.flex-0-1-auto {flex: 0 1 auto;}
+.flex-0-1-100 {flex: 0 1 100%;}
+.flex-1-0-auto {flex: 1 0 auto;}
+.flex-1-0-100 {flex: 1 0 100%;}
+.flex-1-1-auto {flex: 1 1 auto;}
+.flex-1-1-50 {flex: 1 1 50%;}
+.flex-1-1-100 {flex: 1 1 100%;}
+
+.dIB {display: inline-block;}
+
+.color-black {color: #000;}
+.color-black-2 {color: #333;}
+.color-red {color: var(--INTERFACE_COLOR_RED);}
+.color-link {color: var(--INTERFACE_LINK_COLOR); fill: var(--INTERFACE_LINK_COLOR);}
+.color-gray-7 {color: #A0A0A0;}
+
+.h1 {font-size: 14pt;}
+.fs-8 {font-size: 8pt;}
+.fs-8MS {font-size: 8pt; font-family: "MS Sans Serif", Arial, Verdana,sans-serif;}
+.fs-9 {font-size: 9pt;}
+.fs-12 {font-size: 12pt;}
+.fs-14 {font-size: 14pt;}
+.bold {font-weight: bold;}
+.italic {font-style: italic;}
+
+.m-2 {margin: 2px;}
+.m-4 {margin: 4px;}
+.m-8 {margin: 8px;}
+.m-12 {margin: 12px;}
+.m-16 {margin: 16px;}
+.m-20 {margin: 20px;}
+.mt-2 {margin-top: 2px;}
+.mt-4 {margin-top: 4px;}
+.mt-8 {margin-top: 8px;}
+.mt-12 {margin-top: 12px;}
+.mt-16 {margin-top: 16px;}
+.mt-20 {margin-top: 20px;}
+.mt-24 {margin-top: 24px;}
+.mr-16 {margin-right: 16px;}
+.mr-20 {margin-right: 20px;}
+.mlr-10 {margin: 0 10px;}
+.p-8 {padding: 8px;}
+.p-10 {padding: 10px;}
+.p-20 {padding: 20px;}
+.pt-8 {padding-top: 8px;}
+.plr-8 {padding: 0 8px;}
+.pl-20 {padding-left: 20px;}
+
+.taL {text-align: left;}
+.taC {text-align: center !important;}
+.taR {text-align: right;}
+
+.hidden {overflow: hidden;}
+.nowrap {white-space: nowrap;}
+.dots {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.noPointerEvents {pointer-events: none;}
+.iAM {display: inline-block; margin: -3px 0;}
+.underline {text-decoration: underline;}
+.pointer {cursor: pointer;}
+.hover-line:HOVER {text-decoration: underline; cursor: pointer;}
+.hoverLineChild:HOVER * {text-decoration: underline; cursor: pointer;}
+.ellipsis {overflow: hidden; text-overflow: ellipsis;}
+.line-through {text-decoration: line-through;}
+.hyperlink {color: var(--INTERFACE_LINK_COLOR); text-decoration: underline; cursor: pointer;}
+/* /end ------- base ------- .1 базовые классы  */
+/* ------------ base ------- .2 размеры как бы иконок */
+/*.ICompactWeb .zoomI, .zoom85 .zoomI {font-size: 14px;}
+.zoomI {font-size: 16px;}
+.zoom125 .zoomI {font-size: 20px;}
+.zoom150 .zoomI {font-size: 24px;}
+.zoom175 .zoomI {font-size: 28px;}
+.zoom200 .zoomI {font-size: 32px;}
+.zoom300 .zoomI {font-size: 48px;}
+.zoom400 .zoomI {font-size: 64px;}
+
+.i12 {width: 12px; height: 12px;}
+.i16 {width: 16px; height: 16px;}
+.i20 {width: 20px; height: 20px;}
+.i24 {width: 24px; height: 24px;}
+.i32 {width: 32px; height: 32px;}
+.i40 {width: 40px; height: 40px;}
+.i64 {width: 64px; height: 64px;}
+.i96 {width: 96px; height: 96px;}
+.fs16 {font-size: 16px;}
+.fs20 {font-size: 20px;}
+.fs24 {font-size: 24px;}
+.fs32 {font-size: 32px;}
+.fs40 {font-size: 40px;}
+.fs64 {font-size: 64px;}
+.fs96 {font-size: 96px;}*/
+/* /end ------- base ------- .2 размеры как бы иконок */
+/* ------------ base ------- .3 оформительские классы */
+.panelsBack {background-color: #FFF;}
+.panelsBorder {border-width: 1px; border-style: solid; border-color: rgba(0,0,0,0.4);}
+.shadowPaddings {padding: 0 var(--SHADOW_WIDTH) var(--SHADOW_WIDTH) 0;}
+.panelsShadow {-webkit-box-shadow: 2px 2px var(--SHADOW_WIDTH) var(--SHADOW_SPREAD) rgba(0,0,0,var(--SHADOW_ALPHA)); box-shadow: 2px 2px var(--SHADOW_WIDTH) var(--SHADOW_SPREAD) rgba(0,0,0,var(--SHADOW_ALPHA)); }
+.panelsShade {-webkit-box-shadow: 0 0 7px 0 rgba(0,0,0,0.2); box-shadow: 0 0 7px 0 rgba(0,0,0,0.2);}
+.ePrimaryBack {background-color: var(--PRIMARY_COLOR_BACKGROUND);}
+.ePrimaryColor {color: var(--PRIMARY_COLOR_TEXT);}
+/* Цвет дополнительной навигации (панель функций) */
+.eSecondaryBack {background-color: var(--SECONDARY_COLOR_BACKGROUND);}
+.eSecondaryColor {color: var(--SECONDARY_COLOR_TEXT);}
+/* Цвет активности (фокус) */
+.eActivityBack {background-color: var(--ACTIVITY_COLOR_BACKGROUND);}
+.eActivityBack75 {background-color: var(--ACTIVITY_COLOR_BACKGROUND_75);}
+.eActivityColor {color: var(--ACTIVITY_COLOR_TEXT);}
+.eActivityBorder {border-color: var(--ACTIVITY_COLOR_BACKGROUND);}
+/* Цвет акцентирования (зеленый) */
+.eAccentBack {background-color: var(--ACCENT_COLOR_BACKGROUND);}
+.eAccentColor {color: var(--ACCENT_COLOR_TEXT); fill: var(--ACCENT_COLOR_TEXT);}
+/* Цвет важного (дефолтная кнопка) */
+.eImportantBack {background-color: var(--IMPORTANT_COLOR_BACKGROUND);}
+.eImportantColor {color: var(--IMPORTANT_COLOR_TEXT);}
+/* /end ------- base ------- .3 оформительские классы */
+/* /end /////// base ------- //////////////////////// */
+
+

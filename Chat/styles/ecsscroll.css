@@ -1,0 +1,37 @@
+.ecs-base ::-webkit-scrollbar {width: 12px; height: 12px;}
+.ecs-base ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {border-radius: 5px; border-style: solid; border-color: var(--INTERFACE_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-track {background-color: var(--INTERFACE_SCROLLBAR_TRACK_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-thumb {background-color: var(--INTERFACE_SCROLLBAR_THUMB_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-track:horizontal, ::-webkit-scrollbar-thumb:horizontal {border-width: 2px 0;}
+.ecs-base ::-webkit-scrollbar-track:vertical, ::-webkit-scrollbar-thumb:vertical {border-width: 0 2px;}
+.ecs-base ::-webkit-scrollbar-thumb:hover {background: var(--INTERFACE_SCROLLBAR_THUMB_HOVER_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-button {background: var(--INTERFACE_SCROLL) no-repeat 0 0; border: 2px solid var(--INTERFACE_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-button:vertical {height: 23px;}
+.ecs-base ::-webkit-scrollbar-button:horizontal {width: 23px;}
+.ecs-base ::-webkit-scrollbar-button:vertical:start {background-position: -28px -1px;}
+.ecs-base ::-webkit-scrollbar-button:vertical:end {background-position: -6px -1px;}
+.ecs-base ::-webkit-scrollbar-button:horizontal:start {background-position: -1px -24px;}
+.ecs-base ::-webkit-scrollbar-button:horizontal:end {background-position: -22px -24px;}
+.ecs-base ::-webkit-scrollbar-button:vertical:start, ::-webkit-scrollbar-button:vertical:end, ::-webkit-scrollbar-button:horizontal:start, ::-webkit-scrollbar-button:horizontal:end {background-color: var(--INTERFACE_SCROLLBAR_BUTTON_BACKGROUND_COLOR);}
+.ecs-base ::-webkit-scrollbar-button:vertical:start:hover, ::-webkit-scrollbar-button:vertical:end:hover, ::-webkit-scrollbar-button:horizontal:start:hover, ::-webkit-scrollbar-button:horizontal:end:hover {background-color: var(--INTERFACE_SCROLLBAR_BUTTON_HOVER_BACKGROUND_COLOR);}
+
+.jumpsH, .jumpsV {display: flex;}
+.jumpsV {flex-direction: column;}
+.jump {display: flex; flex: 0 0 auto; background-color: inherit; position: relative; cursor: pointer; z-index: 1;}
+.jumpsH .jump {width: 0; height: 100%;}
+.jumpsV .jump {position: absolute; width: 100%; height: 0;}
+.jumpBack {order: -1;}
+.jumpsH .jumpBack {flex-direction: row-reverse;}
+.jumpsV .jumpBack {flex-direction: column-reverse; top: 0;}
+.jumpsV .jumpFwrd {flex-direction: column; bottom: 0;}
+.jump:before {content: ''; display: block; background-color: inherit; position: relative; padding: 1px; -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.2) inset; box-shadow: 0 0 0 1px rgba(0,0,0,0.2) inset;}
+.jumpsH .jump:before {width: 1.35em; height: 100%; margin: -1px -1.35em;}
+.jumpsV .jump:before {width: 100%; height: 1.35em; margin: -1.35em -1px;}
+.jump i {align-self: center; display: inline-block; border: 0.35em solid; position: relative; width: 0; height: 0;}
+.jumpsH .jump i {border-top-color: transparent; border-bottom-color: transparent; margin: 0 0.5em;}
+.jumpsH .jumpBack i {border-left-width: 0;}
+.jumpsH .jumpFwrd i {border-right-width: 0;}
+.jumpsV .jump i {border-left-color: transparent; border-right-color: transparent; margin: 0.5em 0;}
+.jumpsV .jumpBack i {border-top-width: 0;}
+.jumpsV .jumpFwrd i {border-bottom-width: 0;}
+.ecsVideo .jump:before {margin-right: 0; margin-left: 0; -webkit-box-shadow: 0 0 0 1px #333 inset; box-shadow: 0 0 0 1px #333 inset;}

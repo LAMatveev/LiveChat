@@ -1,0 +1,13 @@
+body, div, p, td, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, input, button, textarea {margin: 0; padding: 0;}
+html {text-align: left;}
+li {list-style: none;}
+img {border: 0 none;}
+table {border-collapse: collapse; border-spacing: 0;}
+a, *[tabindex], map area, button {outline: medium none;}
+textarea {overflow: auto; resize: none;}
+button::-moz-focus-inner {border: 0;}
+input::-ms-clear, textarea::-ms-clear,
+input::-ms-reveal, textarea::-ms-reveal {display: none;}
+input:focus, input:active, textarea:focus, textarea:active, button:focus, button:active {outline: medium none; outline-width: 0;}
+::-webkit-caps-lock-indicator, ::-webkit-contacts-auto-fill-button, ::-webkit-credentials-auto-fill-button {display: none; visibility: hidden; pointer-events: none; position: absolute; right: 0;}
+

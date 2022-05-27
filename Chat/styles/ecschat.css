@@ -1,0 +1,5 @@
+:root {
+    --CHAT_HEADER_BACKGROUND_COLOR: #FBED9E;
+    --CHAT_HEADER_TEXT_COLOR: #333333;
+}
+.ecs-chat .ecsTopline .toplineBox {font-size: 1em; font-weight: normal;}
